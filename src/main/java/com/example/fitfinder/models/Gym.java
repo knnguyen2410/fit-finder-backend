@@ -1,6 +1,10 @@
 package com.example.fitfinder.models;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name ="gyms") // name of table in H2 database
@@ -37,6 +41,21 @@ public class Gym {
 
     @Column
     private String details;
+
+    // many gyms can belong to one owner
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private Owner owner;
+
+    // one gym can have many pieces of equipment
+    @OneToMany(mappedBy = "gyms", orphanRemoval = true) // orphanRemoval removes the equipment from database if we deleted it from a gym
+    @LazyCollection(LazyCollectionOption.FALSE) // all equipment data will be eagerly loaded (equipment data is retrieved together with gym data from the database)
+    private List<Equipment> equipmentList;
+
+    // one gym can have many ameneties
+    @OneToMany(mappedBy = "gyms", orphanRemoval = true) // orphanRemoval removes the amenity from database if we deleted it from a gym
+    @LazyCollection(LazyCollectionOption.FALSE) // all amenity data will be eagerly loaded (amenity data is retrieved together with gym data from the database)
+    private List<Amenity> amenityList;
 
     // no-args constructor
     public Gym() {}
@@ -134,6 +153,31 @@ public class Gym {
 
     public void setDetails(String details) {
         this.details = details;
+    }
+
+    // getters and setters for model relationships
+    public Owner getOwner() {
+        return owner;
+    }
+
+    public void setOwner(Owner owner) {
+        this.owner = owner;
+    }
+
+    public List<Equipment> getEquipmentList() {
+        return equipmentList;
+    }
+
+    public void setEquipmentList(List<Equipment> equipmentList) {
+        this.equipmentList = equipmentList;
+    }
+
+    public List<Amenity> getAmenityList() {
+        return amenityList;
+    }
+
+    public void setAmenityList(List<Amenity> amenityList) {
+        this.amenityList = amenityList;
     }
 
     @Override

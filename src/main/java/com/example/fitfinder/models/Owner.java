@@ -1,8 +1,11 @@
 package com.example.fitfinder.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name ="owners") // name of table in H2 database
@@ -22,6 +25,11 @@ public class Owner {
     @Column
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY) // owners can send password data to server, but it is not sent back for the owner to view in the JSON object
     private String password;
+
+    // one owner can have many gyms
+    @OneToMany(mappedBy = "owner", orphanRemoval = true) // orphanRemoval removes the gyms from database if we deleted it from an owner
+    @LazyCollection(LazyCollectionOption.FALSE) // all gyms will be eagerly loaded (gym data is retrieved together with owner data from the database)
+    private List<Gym> gymList;
 
     // no-args constructor
     public Owner() {}
@@ -65,6 +73,15 @@ public class Owner {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    // getters and setters for model relationships
+    public List<Gym> getGymList() {
+        return gymList;
+    }
+
+    public void setGymList(List<Gym> gymList) {
+        this.gymList = gymList;
     }
 
     @Override

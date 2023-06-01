@@ -26,6 +26,11 @@ public class Equipment {
     @Column
     private String details;
 
+    // many pieces of equipment can belong to one gym
+    @ManyToOne
+    @JoinColumn(name = "gym_id")
+    private Gym gym;
+
     // no-args constructor
     public Equipment() {}
 
@@ -86,6 +91,15 @@ public class Equipment {
 
     public void setDetails(String details) {
         this.details = details;
+    }
+
+    // getters and setters for model relationships
+    public Gym getGym() {
+        return gym;
+    }
+
+    public void setGym(Gym gym) {
+        this.gym = gym;
     }
 
     @Override
