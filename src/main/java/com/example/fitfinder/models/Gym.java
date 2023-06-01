@@ -15,7 +15,7 @@ public class Gym {
     private String name;
 
     @Column
-    private String type;
+    private String category;
 
     @Column
     private String addressStreet;
@@ -42,10 +42,10 @@ public class Gym {
     public Gym() {}
 
     // parameterized constructor
-    public Gym(Long id, String name, String type, String addressStreet, String addressCity, String addressState, Long addressZip, String hours, String phone, String details) {
+    public Gym(Long id, String name, String category, String addressStreet, String addressCity, String addressState, Long addressZip, String hours, String phone, String details) {
         this.id = id;
         this.name = name;
-        this.type = type;
+        this.category = category;
         this.addressStreet = addressStreet;
         this.addressCity = addressCity;
         this.addressState = addressState;
@@ -72,12 +72,12 @@ public class Gym {
         this.name = name;
     }
 
-    public String getType() {
-        return type;
+    public String getCategory() {
+        return category;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setCategory(String type) {
+        this.category = category;
     }
 
     public String getAddressStreet() {
@@ -141,7 +141,7 @@ public class Gym {
         return "Gym{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", type='" + type + '\'' +
+                ", category='" + category + '\'' +
                 ", addressStreet='" + addressStreet + '\'' +
                 ", addressCity='" + addressCity + '\'' +
                 ", addressState='" + addressState + '\'' +
