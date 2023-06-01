@@ -44,16 +44,16 @@ public class Gym {
 
     // many gyms can belong to one owner
     @ManyToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "owner_id")
     private Owner owner;
 
     // one gym can have many pieces of equipment
-    @OneToMany(mappedBy = "gyms", orphanRemoval = true) // orphanRemoval removes the equipment from database if we deleted it from a gym
+    @OneToMany(mappedBy = "gym", orphanRemoval = true) // orphanRemoval removes the equipment from database if we deleted it from a gym
     @LazyCollection(LazyCollectionOption.FALSE) // all equipment data will be eagerly loaded (equipment data is retrieved together with gym data from the database)
     private List<Equipment> equipmentList;
 
-    // one gym can have many ameneties
-    @OneToMany(mappedBy = "gyms", orphanRemoval = true) // orphanRemoval removes the amenity from database if we deleted it from a gym
+    // one gym can have many amenities
+    @OneToMany(mappedBy = "gym", orphanRemoval = true) // orphanRemoval removes the amenity from database if we deleted it from a gym
     @LazyCollection(LazyCollectionOption.FALSE) // all amenity data will be eagerly loaded (amenity data is retrieved together with gym data from the database)
     private List<Amenity> amenityList;
 

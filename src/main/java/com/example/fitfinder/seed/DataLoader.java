@@ -16,29 +16,28 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+
 @Component
 public class DataLoader implements CommandLineRunner {
 
     @Autowired
-    private OwnerService ownerService;
-    @Autowired
-    private GymService gymService;
-    @Autowired
-    private EquipmentService equipmentService;
-    @Autowired
-    private AmenityService amenityService;
+    OwnerService ownerService;
 
     @Autowired
-    private OwnerRepository ownerRepository;
+    OwnerRepository ownerRepository;
+
     @Autowired
-    private GymRepository gymRepository;
+    GymRepository gymRepository;
+
     @Autowired
-    private EquipmentRepository equipmentRepository;
+    EquipmentRepository equipmentRepository;
+
     @Autowired
-    private AmenityRepository amenityRepository;
+    AmenityRepository amenityRepository;
 
     @Override
-    public void run(String... args) throws Exception{
+    public void run(String ...args) throws Exception {
         loadUserData();
     }
 
@@ -50,17 +49,48 @@ public class DataLoader implements CommandLineRunner {
 
             // create owner
             Owner kim = new Owner(1L, "Kim Nguyen", "knnguyen2410@gmail.com", "password");
+            ArrayList<Gym> kimGymList = new ArrayList<>();
+            ownerService.createOwner(kim);
 
             // create gym
-            Gym kimGym = new Gym(1L, "Perfect Fit", "Commercial Gym", "123 N. Street St.", "Chicago", "IL", 60654L, "Weekdays 5am - 10pm, Weekends 8am - 8pm", "(123) 123-1234", "New commercial gym in River North");
+            Gym perfectFit = new Gym(1L, "Perfect Fit", "Commercial Gym", "123 N. Street St.", "Chicago", "IL", 60654L, "Weekdays 5am - 10pm, Weekends 8am - 8pm", "(123) 123-1234", "New commercial gym in River North");
+            ArrayList<Equipment> perfectFitEquipmentList = new ArrayList<>();
+            ArrayList<Amenity> perfectFitAmenityList = new ArrayList<>();
+
+            perfectFit.setOwner(kim);
+
+            kimGymList.add(perfectFit);
+            kim.setGymList(kimGymList);
+
+            gymRepository.save(perfectFit);
 
             // create equipment
             Equipment weightPlate45 = new Equipment(1L, "Weight", "Trustworthy Brand", "45lb weight plate (single)", 20L, "One (1) 45lb weight plate");
             Equipment barbell = new Equipment(2L, "Bar", "Trustworthy Brand", "1 inch barbell", 5L, "One (1) 1 inch barbell");
             Equipment flatBenchPress = new Equipment(3L, "Bench", "Trustworthy Brand", "Flat bench press", 5L, "One (1) flat branch press, non-adjustable");
 
+            weightPlate45.setGym(perfectFit);
+            barbell.setGym(perfectFit);
+            flatBenchPress.setGym(perfectFit);
+
+            perfectFitEquipmentList.add(weightPlate45);
+            perfectFitEquipmentList.add(barbell);
+            perfectFitEquipmentList.add(flatBenchPress);
+
+            perfectFit.setEquipmentList(perfectFitEquipmentList);
+
+            equipmentRepository.save(weightPlate45);
+            equipmentRepository.save(barbell);
+            equipmentRepository.save(flatBenchPress);
+
             // create amenity
             Amenity basketballCourt = new Amenity(1L, "Recreational facility", "Sports", "Basketball Court", "New basketball court");
+
+            basketballCourt.setGym(perfectFit);
+            perfectFitAmenityList.add(basketballCourt);
+            perfectFit.setAmenityList(perfectFitAmenityList);
+
+            amenityRepository.save(basketballCourt);
         }
     }
 }
