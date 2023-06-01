@@ -22,19 +22,19 @@ import java.util.ArrayList;
 public class DataLoader implements CommandLineRunner {
 
     @Autowired
-    OwnerService ownerService;
+    private OwnerService ownerService;
 
     @Autowired
-    OwnerRepository ownerRepository;
+    private OwnerRepository ownerRepository;
 
     @Autowired
-    GymRepository gymRepository;
+    private GymRepository gymRepository;
 
     @Autowired
-    EquipmentRepository equipmentRepository;
+    private EquipmentRepository equipmentRepository;
 
     @Autowired
-    AmenityRepository amenityRepository;
+    private AmenityRepository amenityRepository;
 
     @Override
     public void run(String ...args) throws Exception {
