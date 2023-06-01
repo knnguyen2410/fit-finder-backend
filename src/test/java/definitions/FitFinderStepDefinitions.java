@@ -1,7 +1,6 @@
 package definitions;
 
 import com.example.fitfinder.FitFinderApplication;
-import io.cucumber.java.en.Given;
 import io.cucumber.spring.CucumberContextConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
@@ -16,9 +15,5 @@ public class FitFinderStepDefinitions {
 
     @LocalServerPort
     String port;
-
-    @Given("A gym is available")
-    public void aGymIsAvailable() {
-    }
 
 }
