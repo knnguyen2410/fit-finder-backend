@@ -89,7 +89,7 @@ public class FitFinderStepDefinitions {
     // Scenario: User (gym owner) can log in
     // PUBLIC - GET /api/owners/{ownerId} (owner user story)
     @Given("A gym owner account is available")
-    public void aGymOwnerAccountIsAvailable(){
+    public void aGymOwnerAccountIsAvailable() {
         RestAssured.baseURI = BASE_URL;
         request = RestAssured.given();
         response = request.get(BASE_URL + port + "/api/owners/1");
@@ -187,5 +187,31 @@ public class FitFinderStepDefinitions {
     @Then("I see a list of all amenities for the gym")
     public void iSeeAListOfAllAmenitiesForTheGym() {
         Assert.assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
+    }
+
+    // PRIVATE endpoints
+
+    @Given("I am logged into my account")
+    public void iAmLoggedIntoMyAccount() throws JSONException {
+        Assert.assertNotEquals(getSecurityKey(), "Error : email or password is incorrect");
+        Assert.assertNotNull(getSecurityKey());
+    }
+
+    // Scenario: User (gym owner) can manage accounts details
+    // PRIVATE - GET /api/owners/{ownerId} (owner user story)
+    @When("I update my account details")
+    public void iUpdateMyAccountDetails() throws JSONException {
+        RestAssured.baseURI = BASE_URL;
+        request = RestAssured.given();
+
+        JSONObject requestBody = new JSONObject();
+        requestBody.put("name", "updated kim");
+        requestBody.put("email", "updated@gmail.com");
+        requestBody.put("password", "up");
+        request.header("Content-Type", "application/json");
+        request.header("Authorization", "Bearer " + getSecurityKey());
+
+        response = request.body(requestBody.toString()).put(BASE_URL + port + "/api/owners/1");
+        Assert.assertEquals(200, response.getStatusCode());
     }
 }

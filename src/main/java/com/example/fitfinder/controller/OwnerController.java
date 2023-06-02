@@ -42,6 +42,13 @@ public class OwnerController {
         return ownerService.getOwnerById(ownerId);
     }
 
+    // Functionality: Updates owner account details
+    // Path: http://localhost:8080/api/owners/{ownerId}
+    @PutMapping(path = "/{ownerId}")
+    public Owner updateOwnerById(@PathVariable Long ownerId, @RequestBody Owner ownerObject){
+        return ownerService.updateOwnerById(ownerId, ownerObject);
+    }
+
     // Functionality: Returns a list of all gyms belonging to owner account
     // Path: http://localhost:8080/api/owners/{ownerId}/gyms
     @GetMapping(path = "/{ownerId}/gyms")

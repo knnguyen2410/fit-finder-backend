@@ -3,6 +3,7 @@ package com.example.fitfinder.service;
 import com.example.fitfinder.exceptions.AlreadyExistsException;
 import com.example.fitfinder.exceptions.BadRequestException;
 import com.example.fitfinder.exceptions.NotFoundException;
+import com.example.fitfinder.exceptions.UnauthorizedException;
 import com.example.fitfinder.models.Gym;
 import com.example.fitfinder.models.Owner;
 import com.example.fitfinder.models.login.LoginRequest;
@@ -11,6 +12,7 @@ import com.example.fitfinder.repository.GymRepository;
 import com.example.fitfinder.repository.OwnerRepository;
 import com.example.fitfinder.security.JWTUtils;
 import com.example.fitfinder.security.MyOwnerDetails;
+import com.example.fitfinder.security.MyOwnerDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.http.HttpStatus;
@@ -21,6 +23,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
 import java.util.List;
 import java.util.Objects;
@@ -49,6 +52,18 @@ public class OwnerService {
         this.jwtUtils = jwtUtils;
         this.authenticationManager = authenticationManager;
         this.myOwnerDetails = myOwnerDetails;
+    }
+
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
+    public static Owner getLoggedInOwner() {
+        MyOwnerDetails ownerDetails = (MyOwnerDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        // Check that there is a logged-in user
+        if (ownerDetails.getOwner() == null || ownerDetails.getUsername().isEmpty() || ownerDetails.getUsername() == null) {
+            // Return an error if the user is not found
+            throw new UnauthorizedException("Unauthorized");
+        }
+        // Return the data for the logged-in user
+        return ownerDetails.getOwner();
     }
 
     public Owner createOwner(Owner ownerObject){
@@ -102,6 +117,24 @@ public class OwnerService {
         Optional<Owner> owner = ownerRepository.findById(ownerId);
         if (owner.isPresent()){
             return owner;
+        } else {
+            throw new NotFoundException("Owner with id " + ownerId + " not found");
+        }
+    }
+
+    public Owner updateOwnerById(Long ownerId, Owner ownerObject){
+        Optional<Owner> owner = ownerRepository.findById(getLoggedInOwner().getId());
+        if (owner.isPresent()){
+            if (ownerObject.getName() != null){
+                owner.get().setName(ownerObject.getName());
+            }
+            if (ownerObject.getEmail() != null){
+                owner.get().setEmail(ownerObject.getEmail());
+            }
+            if (ownerObject.getPassword() != null){
+                owner.get().setPassword(passwordEncoder.encode(ownerObject.getPassword()));
+            }
+            return ownerRepository.save(owner.get());
         } else {
             throw new NotFoundException("Owner with id " + ownerId + " not found");
         }

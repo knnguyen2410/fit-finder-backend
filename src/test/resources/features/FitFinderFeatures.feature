@@ -42,13 +42,10 @@ Feature: Fit Finder API functionalities
 
   ## PRIVATE endpoints
 
-#  Scenario: User (gym owner) can manage accounts details
-#    Given I am logged into my account
-#    # PRIVATE - GET /api/owners/{ownerId} (owner user story)
-#    When I go to my account details page
-#    Then I see my account details
-#    # PRIVATE - PUT /api/owners/{ownerId} (owner user story)
-#    When I update my account details
+  Scenario: User (gym owner) can manage accounts details
+    Given I am logged into my account
+    # PRIVATE - PUT /api/owners/{ownerId} (owner user story)
+    When I update my account details
 #    Then I see my profile is updated
 #    # PRIVATE - DELETE /api/owners/{ownerId} (owner user story)
 #    When I delete my account
