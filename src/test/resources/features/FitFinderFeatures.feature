@@ -30,7 +30,7 @@ Feature: Fit Finder API functionalities
   # PUBLIC - GET /api/owners/{ownerId}/gyms
   Scenario: User can see all gyms belonging to an owner
     Given A gym owner account is available
-#    When I search for gyms belonging to the owner
+    When I search for gyms belonging to the owner
 #    Then I see a list of gyms belonging to the owner
 
 #  # Gym user stories

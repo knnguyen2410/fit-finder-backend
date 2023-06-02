@@ -57,6 +57,16 @@ public class OwnerService {
         }
     }
 
+    public Owner getOwnerById(Long ownerId){
+        // Find owner by owner id
+        Optional<Owner> owner = ownerRepository.findById(ownerId);
+        if (owner.isPresent()){
+            return owner.get();
+        } else {
+            throw new NotFoundException("Owner with id " + ownerId + "not found");
+        }
+    }
+
     public List<Gym> getGymByOwnerId(Long ownerId){
         // Find owner by owner id
         Optional<Owner> owner = ownerRepository.findById(ownerId);

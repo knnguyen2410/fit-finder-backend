@@ -1,6 +1,7 @@
 package com.example.fitfinder.controller;
 
 import com.example.fitfinder.models.Gym;
+import com.example.fitfinder.models.Owner;
 import com.example.fitfinder.service.OwnerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,6 +17,13 @@ public class OwnerController {
 
     @Autowired
     private OwnerService ownerService;
+
+    // Functionality: Returns owner account details
+    // Path: http://localhost:8080/api/owners/{ownerId}
+    @GetMapping(path = "/{ownerId}")
+    public Owner getOwnerById(@PathVariable Long ownerId){
+        return ownerService.getOwnerById(ownerId);
+    }
 
     // Functionality: Returns a list of all gyms belonging to owner account
     // Path: http://localhost:8080/api/owners/{ownerId}/gyms

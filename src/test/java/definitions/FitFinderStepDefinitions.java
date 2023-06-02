@@ -2,10 +2,8 @@ package definitions;
 
 import com.example.fitfinder.FitFinderApplication;
 import com.example.fitfinder.models.Gym;
-import com.example.fitfinder.models.Owner;
 import com.example.fitfinder.repository.GymRepository;
 import com.example.fitfinder.repository.OwnerRepository;
-import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -46,8 +44,15 @@ public class FitFinderStepDefinitions {
     public void aGymOwnerAccountIsAvailable(){
         RestAssured.baseURI = BASE_URL;
         RequestSpecification request = RestAssured.given();
-        response = request.get(BASE_URL + port + "/api/owners/1/gyms");
+        response = request.get(BASE_URL + port + "/api/owners/1");
         Assert.assertEquals(200, response.getStatusCode());
     }
 
+    @When("I search for gyms belonging to the owner")
+    public void iSearchForGymsBelongingToTheOwner() {
+        RestAssured.baseURI = BASE_URL;
+        RequestSpecification request = RestAssured.given();
+        response = request.get(BASE_URL + port + "/api/owners/1/gyms");
+        Assert.assertEquals(200, response.getStatusCode());
+    }
 }
