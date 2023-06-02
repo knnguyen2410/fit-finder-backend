@@ -10,6 +10,8 @@ import java.util.Optional;
 @Repository
 public interface GymRepository extends JpaRepository<Gym, Long> {
 
+    Optional<Gym> findById(Long gymId);
+
     Optional<Gym> findByName(String name);
 
     Optional<Gym> findGymByIdAndOwnerId(Long gymId, Long ownerId);

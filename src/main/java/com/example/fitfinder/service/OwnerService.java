@@ -58,7 +58,6 @@ public class OwnerService {
     }
 
     public Optional<Owner> getOwnerById(Long ownerId){
-        // Find owner by owner id
         Optional<Owner> owner = ownerRepository.findById(ownerId);
         if (owner.isPresent()){
             return owner;
@@ -67,11 +66,9 @@ public class OwnerService {
         }
     }
 
-    public List<Gym> getGymByOwnerId(Long ownerId){
-        // Find owner by owner id
+    public List<Gym> getAllGymsByOwnerId(Long ownerId){
         Optional<Owner> owner = ownerRepository.findById(ownerId);
         if (owner.isPresent()){
-            // Find list of gyms belonging to owner with owner id
             List<Gym> gymList = owner.get().getGymList();
             if (gymList.size() == 0){
                 throw new NotFoundException("No gyms found for owner with id " + ownerId);

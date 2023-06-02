@@ -55,6 +55,7 @@ public class DataLoader implements CommandLineRunner {
 
             // create gym
             Gym perfectFit = new Gym(1L, "Perfect Fit", "Commercial Gym", "123 N. Street St.", "Chicago", "IL", 60654L, "Weekdays 5am - 10pm, Weekends 8am - 8pm", "(123) 123-1234", "New commercial gym in River North");
+            Gym perfectBoxing = new Gym(2L, "Perfect Boxing Gym", "Boxing Gym", "321 N. Street St.", "Chicago", "IL", 60654L, "Weekdays 5am - 10pm, Weekends 8am - 8pm", "(123) 123-1234", "New boxing gym in River North");
 
             // create equipment
             Equipment weightPlate45 = new Equipment(1L, "Weight", "Trustworthy Brand", "45lb weight plate (single)", 20L, "One (1) 45lb weight plate");
@@ -66,7 +67,9 @@ public class DataLoader implements CommandLineRunner {
 
             // set owner for gym
             perfectFit.setOwner(kim);
+            perfectBoxing.setOwner(sam);
             gymRepository.save(perfectFit);
+            gymRepository.save(perfectBoxing);
 
             // set gym for equipment
             weightPlate45.setGym(perfectFit);

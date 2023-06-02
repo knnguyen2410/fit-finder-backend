@@ -86,7 +86,6 @@ public class FitFinderStepDefinitions {
         Assert.assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
     }
 
-    // PUBLIC - GET /api/gyms/{gymId}
     // Scenario: User can retrieve gym details
     @Given("A gym is available")
     public void aGymIsAvailable() {
@@ -94,6 +93,7 @@ public class FitFinderStepDefinitions {
         Assert.assertNotNull(gym);
     }
 
+    // PUBLIC - GET /api/gyms/{gymId}
     @When("I search for the gym")
     public void iSearchForTheGym() {
         RestAssured.baseURI = BASE_URL;
@@ -105,5 +105,18 @@ public class FitFinderStepDefinitions {
     @Then("I see the details of gym")
     public void iSeeTheDetailsOfGym() {
         Assert.assertNotNull(String.valueOf(response));
+    }
+
+    // PUBLIC - GET /api/gyms/{gymId}/equipment
+    @When("I search for the gym equipment")
+    public void iSearchForTheGymEquipment() {
+        responseEntity = new RestTemplate().exchange(BASE_URL + port + "/api/gyms/1/equipment", HttpMethod.GET, null, String.class);
+        list = JsonPath.from(String.valueOf(responseEntity.getBody())).get();
+        Assert.assertFalse(list.isEmpty());
+    }
+
+    @Then("I see a list of all equipment for the gym")
+    public void iSeeAListOfAllEquipmentForTheGym() {
+        Assert.assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
     }
 }

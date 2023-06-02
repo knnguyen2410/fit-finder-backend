@@ -29,7 +29,7 @@ public class OwnerController {
     // Functionality: Returns a list of all gyms belonging to owner account
     // Path: http://localhost:8080/api/owners/{ownerId}/gyms
     @GetMapping(path = "/{ownerId}/gyms")
-    public List<Gym> getGymByOwnerId(@PathVariable Long ownerId) {
-        return ownerService.getGymByOwnerId(ownerId);
+    public List<Gym> getAllGymsByOwnerId(@PathVariable Long ownerId) {
+        return ownerService.getAllGymsByOwnerId(ownerId);
     }
 }
