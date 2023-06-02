@@ -3,7 +3,6 @@ package definitions;
 import com.example.fitfinder.FitFinderApplication;
 import com.example.fitfinder.models.Gym;
 import com.example.fitfinder.repository.GymRepository;
-import com.example.fitfinder.repository.OwnerRepository;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -37,9 +36,6 @@ public class FitFinderStepDefinitions {
     String port;
 
     @Autowired
-    private OwnerRepository ownerRepository;
-
-    @Autowired
     private GymRepository gymRepository;
 
     // PUBLIC - GET /api/owners/{ownerId}/gyms
@@ -47,7 +43,7 @@ public class FitFinderStepDefinitions {
     @Given("A gym owner account is available")
     public void aGymOwnerAccountIsAvailable(){
         RestAssured.baseURI = BASE_URL;
-        RequestSpecification request = RestAssured.given();
+        request = RestAssured.given();
         response = request.get(BASE_URL + port + "/api/owners/1");
         Assert.assertEquals(200, response.getStatusCode());
     }
@@ -76,7 +72,7 @@ public class FitFinderStepDefinitions {
     @When("I search for gyms")
     public void iSearchForGyms() {
         RestAssured.baseURI = BASE_URL;
-        RequestSpecification request = RestAssured.given();
+        request = RestAssured.given();
         response = request.get(BASE_URL + port + "/api/gyms");
         Assert.assertEquals(200, response.getStatusCode());
     }
@@ -97,7 +93,7 @@ public class FitFinderStepDefinitions {
     @When("I search for the gym")
     public void iSearchForTheGym() {
         RestAssured.baseURI = BASE_URL;
-        RequestSpecification request = RestAssured.given();
+        request = RestAssured.given();
         response = request.get(BASE_URL + port + "/api/gyms/1");
         Assert.assertEquals(200, response.getStatusCode());
     }
