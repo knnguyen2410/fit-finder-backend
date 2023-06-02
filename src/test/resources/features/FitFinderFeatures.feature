@@ -45,13 +45,12 @@ Feature: Fit Finder API functionalities
     When I search for gyms
     Then I see a list of all gyms
 
-#  # public test 3/5 ##############################################
-#  # PUBLIC - GET /api/gyms/{gymId}
-#  Scenario: User can retrieve gym details
-#    Given A gym exists
-#    When I search for the gym
-#    Then I see the details of gym
-#
+  # PUBLIC - GET /api/gyms/{gymId}
+  Scenario: User can retrieve gym details
+    Given A gym is available
+    When I search for the gym
+    Then I see the details of gym
+
 #  # PRIVATE - /api/gyms/{gymId}
 #  Scenario: User (gym owner) can manage gyms
 #    Given I am logged into my account

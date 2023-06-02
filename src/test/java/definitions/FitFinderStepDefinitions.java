@@ -85,4 +85,25 @@ public class FitFinderStepDefinitions {
     public void iSeeAListOfAllGyms() {
         Assert.assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
     }
+
+    // PUBLIC - GET /api/gyms/{gymId}
+    // Scenario: User can retrieve gym details
+    @Given("A gym is available")
+    public void aGymIsAvailable() {
+        Gym gym = gymRepository.findById(1L).get();
+        Assert.assertNotNull(gym);
+    }
+
+    @When("I search for the gym")
+    public void iSearchForTheGym() {
+        RestAssured.baseURI = BASE_URL;
+        RequestSpecification request = RestAssured.given();
+        response = request.get(BASE_URL + port + "/api/gyms/1");
+        Assert.assertEquals(200, response.getStatusCode());
+    }
+
+    @Then("I see the details of gym")
+    public void iSeeTheDetailsOfGym() {
+        Assert.assertNotNull(String.valueOf(response));
+    }
 }
