@@ -31,23 +31,18 @@ public class OwnerService {
         this.gymRepository = gymRepository;
     }
 
-    public Owner findOwnerByEmail(String email){
-        return ownerRepository.findOwnerByEmail(email);
-    }
-
-    // test not written yet (owner registration test)
     public Owner createOwner(Owner ownerObject){
         // Check that the name field is not empty when updating the name
         if (Objects.equals(ownerObject.getName(), "") || ownerObject.getName() == null) {
-            throw new BadRequestException("User name is required");
+            throw new BadRequestException("Owner name is required");
         }
         // Check that the email field is not empty when updating the email
         if (Objects.equals(ownerObject.getEmail(), "") || ownerObject.getEmail() == null) {
-            throw new BadRequestException("User email is required");
+            throw new BadRequestException("Owner email is required");
         }
         // Check that the password field is not empty when updating the password
         if (Objects.equals(ownerObject.getPassword(), "") || ownerObject.getPassword() == null) {
-            throw new BadRequestException("User password is required");
+            throw new BadRequestException("Owner password is required");
         }
         // Check the email does not exist in the database
         if (!ownerRepository.existsByEmail(ownerObject.getEmail())) {
@@ -57,8 +52,12 @@ public class OwnerService {
             return ownerRepository.save(ownerObject);
         } else {
             // Throw an error if the email already exists in the database
-            throw new AlreadyExistsException("A gym owner with email address " + ownerObject.getEmail() + " already exists");
+            throw new AlreadyExistsException("A gym owner with the email address " + ownerObject.getEmail() + " already exists");
         }
+    }
+
+    public Owner findOwnerByEmail(String email){
+        return ownerRepository.findOwnerByEmail(email);
     }
 
     public Optional<Owner> getOwnerById(Long ownerId){
@@ -83,5 +82,4 @@ public class OwnerService {
             throw new NotFoundException("Owner with id " + ownerId + " not found");
         }
     }
-
 }

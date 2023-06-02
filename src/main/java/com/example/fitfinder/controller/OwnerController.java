@@ -4,11 +4,10 @@ import com.example.fitfinder.models.Gym;
 import com.example.fitfinder.models.Owner;
 import com.example.fitfinder.service.OwnerService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,6 +17,14 @@ public class OwnerController {
 
     @Autowired
     private OwnerService ownerService;
+
+    // Functionality: Creates owner account
+    // Path: http://localhost:8080/api/owners/register
+    @PostMapping(path = "/register")
+    @ResponseStatus(HttpStatus.CREATED)
+    public Owner createOwner (@RequestBody @Valid Owner ownerObject){
+        return ownerService.createOwner(ownerObject);
+    }
 
     // Functionality: Returns owner account details
     // Path: http://localhost:8080/api/owners/{ownerId}

@@ -45,8 +45,8 @@ public class DataLoader implements CommandLineRunner {
             amenityRepository.count() == 0){
 
             // create owner
-            Owner kim = new Owner(1L, "Kim", "kim@gmail.com", "p");
-            Owner sam = new Owner(2L, "Sam", "sam@gmail.com", "p");
+            Owner kim = new Owner(1L, "kim", "kim@gmail.com", "p");
+            Owner sam = new Owner(2L, "sam", "sam@gmail.com", "p");
             ownerService.createOwner(kim);
             ownerService.createOwner(sam);
 

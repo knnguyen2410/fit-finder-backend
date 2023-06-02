@@ -60,9 +60,9 @@ public class SecurityConfiguration {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{ // accepts a http server request
         http.authorizeRequests()
-//                .antMatchers(HttpMethod.POST,
-//                        "/api/owners/register",
-//                        "/api/owners/login").permitAll()
+                .antMatchers(HttpMethod.POST,
+                        "/api/owners/register",
+                        "/api/owners/login").permitAll()
                 .antMatchers(HttpMethod.GET,
                         "/api/owners/{ownerId}",
                         "/api/owners/{ownerId}/gyms",
