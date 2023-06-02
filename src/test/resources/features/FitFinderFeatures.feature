@@ -53,6 +53,10 @@ Feature: Fit Finder API functionalities
     # PUBLIC - GET /api/gyms/{gymId}/equipment (equipment user story)
     When I search for the gym equipment
     Then I see a list of all equipment for the gym
+    # PUBLIC - GET /api/gyms/{gymId}/amenities (amenity user story)
+    When I search for the gym amenities
+    Then I see a list of all amenities for the gym
+
 
 #  # PRIVATE - /api/gyms/{gymId}
 #  Scenario: User (gym owner) can manage gyms
@@ -73,8 +77,6 @@ Feature: Fit Finder API functionalities
 #    When I create equipment for the gym
 #    Then I see the equipment is created for the gym
 
-
-
 #  # PRIVATE - /api/gyms/{gymId}/equipment/{equipmentId}
 #  Scenario: User (gym owner) can manage equipment for a gym
 #    Given I am logged into my account
@@ -87,21 +89,14 @@ Feature: Fit Finder API functionalities
 #    Then I see the equipment is deleted
 #
 #  # Amenity user stories
-#  # PRIVATE - POST /api/gyms/{gymId}/amenity
+#  # PRIVATE - POST /api/gyms/{gymId}/amenities
 #  Scenario: User (gym owner) can create an amenity for a gym
 #    Given I am logged into my account
 #    And A gym is available
 #    When I create an amenity for the gym
 #    Then I see the amenity is created for the gym
-#
-#  # public test 5/5 ##############################################
-#  # PUBLIC - GET /api/gyms/{gymId}/amenity
-#  Scenario: User can see all amenities for a gym
-#    Given A gym is available
-#    When I search for a gym's amenities
-#    Then I see a list of all amenities for the gym
-#
-#  # PRIVATE - /api/gyms/{gymId}/amenity/{amenityId}
+
+#  # PRIVATE - /api/gyms/{gymId}/amenities/{amenityId}
 #  Scenario: User (gym owner) can manage amenities for a gym
 #    Given I am logged into my account
 #    And A gym is available

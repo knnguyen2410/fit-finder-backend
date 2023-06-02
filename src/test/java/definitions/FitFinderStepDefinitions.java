@@ -119,4 +119,16 @@ public class FitFinderStepDefinitions {
     public void iSeeAListOfAllEquipmentForTheGym() {
         Assert.assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
     }
+
+    @When("I search for the gym amenities")
+    public void iSearchForTheGymAmenities() {
+        responseEntity = new RestTemplate().exchange(BASE_URL + port + "/api/gyms/1/amenities", HttpMethod.GET, null, String.class);
+        list = JsonPath.from(String.valueOf(responseEntity.getBody())).get();
+        Assert.assertFalse(list.isEmpty());
+    }
+
+    @Then("I see a list of all amenities for the gym")
+    public void iSeeAListOfAllAmenitiesForTheGym() {
+        Assert.assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
+    }
 }
