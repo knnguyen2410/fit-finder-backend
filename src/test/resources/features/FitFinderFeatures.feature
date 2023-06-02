@@ -29,7 +29,7 @@ Feature: Fit Finder API functionalities
   # PUBLIC - GET /api/owners/{ownerId}/gyms
   Scenario: User can see all gyms belonging to an owner
     Given A gym owner account is available
-    When A list of gyms is available
+    When A list of gyms is available for the owner
     Then I see a list of gyms belonging to the owner
 
 #  # Gym user stories
@@ -38,14 +38,13 @@ Feature: Fit Finder API functionalities
 #    Given I am logged into my account
 #    When I create a gym
 #    Then I see the gym is created
-#
-#  # public test 2/5 ##############################################
-#  # PUBLIC - GET /api/gyms
-#  Scenario: User can retrieve all gyms
-#    Given There are gyms available
-#    When I search for gyms
-#    Then I see a list of all gyms
-#
+
+  # PUBLIC - GET /api/gyms
+  Scenario: User can see all gyms
+    Given A list of gyms is available
+    When I search for gyms
+    Then I see a list of all gyms
+
 #  # public test 3/5 ##############################################
 #  # PUBLIC - GET /api/gyms/{gymId}
 #  Scenario: User can retrieve gym details
