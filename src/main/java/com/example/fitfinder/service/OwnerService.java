@@ -74,12 +74,12 @@ public class OwnerService {
             // Find list of gyms belonging to owner with owner id
             List<Gym> gymList = owner.get().getGymList();
             if (gymList.size() == 0){
-                throw new NotFoundException("No gyms listed for " + owner.get().getName());
+                throw new NotFoundException("No gyms found for owner with id " + ownerId);
             } else {
                 return gymList;
             }
         } else {
-            throw new NotFoundException("Owner with id " + ownerId + "not found");
+            throw new NotFoundException("Owner with id " + ownerId + " not found");
         }
     }
 

@@ -49,7 +49,9 @@ public class DataLoader implements CommandLineRunner {
 
             // create owner
             Owner kim = new Owner(1L, "Kim", "kim@gmail.com", "p");
+            Owner sam = new Owner(2L, "Sam", "sam@gmail.com", "p");
             ownerService.createOwner(kim);
+            ownerService.createOwner(sam);
 
             // create gym
             Gym perfectFit = new Gym(1L, "Perfect Fit", "Commercial Gym", "123 N. Street St.", "Chicago", "IL", 60654L, "Weekdays 5am - 10pm, Weekends 8am - 8pm", "(123) 123-1234", "New commercial gym in River North");

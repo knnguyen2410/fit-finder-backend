@@ -17,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
@@ -51,10 +52,15 @@ public class FitFinderStepDefinitions {
         Assert.assertEquals(200, response.getStatusCode());
     }
 
-//    @When("A list of gyms is available")
-//    public void aListOfGymsIsAvailable() {
-//        responseEntity = new RestTemplate().exchange(BASE_URL + port + "/api/owners/1/gyms", HttpMethod.GET, null, String.class);
-//        list = JsonPath.from(String.valueOf(responseEntity.getBody())).get();
-//        Assert.assertTrue(list.isEmpty());
-//    }
+    @When("A list of gyms is available")
+    public void aListOfGymsIsAvailable() {
+        responseEntity = new RestTemplate().exchange(BASE_URL + port + "/api/owners/1/gyms", HttpMethod.GET, null, String.class);
+        list = JsonPath.from(String.valueOf(responseEntity.getBody())).get();
+        Assert.assertFalse(list.isEmpty());
+    }
+
+    @Then("I see a list of gyms belonging to the owner")
+    public void iSeeAListOfGymsBelongingToTheOwner() {
+        Assert.assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
+    }
 }
