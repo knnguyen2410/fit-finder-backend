@@ -84,6 +84,7 @@ public class DataLoader implements CommandLineRunner {
             ArrayList<Gym> kimGymList = new ArrayList<>();
             kimGymList.add(perfectFit);
             kim.setGymList(kimGymList);
+            ownerRepository.save(kim);
 
             // set equipment list for gym
             ArrayList<Equipment> perfectFitEquipmentList = new ArrayList<>();
@@ -96,6 +97,8 @@ public class DataLoader implements CommandLineRunner {
             ArrayList<Amenity> perfectFitAmenityList = new ArrayList<>();
             perfectFitAmenityList.add(basketballCourt);
             perfectFit.setAmenityList(perfectFitAmenityList);
+
+            gymRepository.save(perfectFit);
         }
     }
 }

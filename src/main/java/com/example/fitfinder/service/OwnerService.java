@@ -5,9 +5,21 @@ import com.example.fitfinder.exceptions.BadRequestException;
 import com.example.fitfinder.exceptions.NotFoundException;
 import com.example.fitfinder.models.Gym;
 import com.example.fitfinder.models.Owner;
+import com.example.fitfinder.models.login.LoginRequest;
+import com.example.fitfinder.models.login.LoginResponse;
 import com.example.fitfinder.repository.GymRepository;
 import com.example.fitfinder.repository.OwnerRepository;
+import com.example.fitfinder.security.JWTUtils;
+import com.example.fitfinder.security.MyOwnerDetails;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,17 +30,25 @@ import java.util.Optional;
 public class OwnerService {
 
     private OwnerRepository ownerRepository;
-
     private GymRepository gymRepository;
+    private final PasswordEncoder passwordEncoder;
+    private JWTUtils jwtUtils;
+    private AuthenticationManager authenticationManager;
+    private MyOwnerDetails myOwnerDetails;
 
     @Autowired
-    public void setOwnerRepository(OwnerRepository ownerRepository) {
+    public OwnerService(OwnerRepository ownerRepository,
+                        GymRepository gymRepository,
+                        @Lazy PasswordEncoder passwordEncoder,
+                        JWTUtils jwtUtils,
+                        @Lazy AuthenticationManager authenticationManager,
+                        @Lazy MyOwnerDetails myOwnerDetails) {
         this.ownerRepository = ownerRepository;
-    }
-
-    @Autowired
-    public void setGymRepository(GymRepository gymRepository) {
         this.gymRepository = gymRepository;
+        this.passwordEncoder = passwordEncoder;
+        this.jwtUtils = jwtUtils;
+        this.authenticationManager = authenticationManager;
+        this.myOwnerDetails = myOwnerDetails;
     }
 
     public Owner createOwner(Owner ownerObject){
@@ -47,12 +67,30 @@ public class OwnerService {
         // Check the email does not exist in the database
         if (!ownerRepository.existsByEmail(ownerObject.getEmail())) {
             // Hash the password the user entered
-            ownerObject.setPassword(ownerObject.getPassword());
+            ownerObject.setPassword(passwordEncoder.encode(ownerObject.getPassword()));
             // Return the data for the newly created user
             return ownerRepository.save(ownerObject);
         } else {
             // Throw an error if the email already exists in the database
             throw new AlreadyExistsException("A gym owner with the email address " + ownerObject.getEmail() + " already exists");
+        }
+    }
+
+    public ResponseEntity<?> loginOwner(LoginRequest loginRequest) {
+        try {
+            // Authenticates the owner by checking the email and password provided
+            Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword()));
+            // Sets the authenticated user in the SecurityContext
+            SecurityContextHolder.getContext().setAuthentication(authentication);
+            // Obtains the user's details after authentication
+            myOwnerDetails = (MyOwnerDetails) authentication.getPrincipal();
+            // Generate a JWT key for the authenticated user
+            final String JWT = jwtUtils.generateJwtToken(myOwnerDetails);
+            // Return the JWT key
+            return ResponseEntity.ok(new LoginResponse(JWT));
+        } catch (Exception e) {
+            // Returns a 401 status code if the authentication fails
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new LoginResponse("Error : email or password is incorrect"));
         }
     }
 

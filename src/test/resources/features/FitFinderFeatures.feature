@@ -8,11 +8,12 @@ Feature: Fit Finder API functionalities
     When I create an account with the email address
     Then The account is created
 
-  # PUBLIC - POST /api/owners/login (owner user story)
   Scenario: User (gym owner) can log in
-    Given An account is not logged in
-#    When I log in with valid credentials
-#    Then I see I am logged in
+    # PUBLIC - GET /api/owners/{ownerId} (owner user story)
+    Given A gym owner account is available
+    # PUBLIC - POST /api/owners/login (owner user story)
+    When I log in with valid credentials
+    Then I see I am logged in
 
   Scenario: User can see gym owner details
     # PUBLIC - GET /api/owners/{ownerId} (owner user story)

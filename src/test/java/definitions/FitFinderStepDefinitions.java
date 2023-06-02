@@ -27,22 +27,11 @@ import java.util.List;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = FitFinderApplication.class)
 public class FitFinderStepDefinitions {
 
-    private final String BASE_URL = "http://localhost:";
+    private String BASE_URL = "http://localhost:";
     private Response response;
     private ResponseEntity<String> responseEntity;
     private RequestSpecification request;
     private List<?> list;
-
-    public String getSecurityKey() throws Exception {
-        RequestSpecification request = RestAssured.given();
-        JSONObject requestBody = new JSONObject();
-        requestBody.put("email", "kim@gmail.com");
-        requestBody.put("password", "p");
-        request.header("Content-Type", "application/json");
-        response = request.body(requestBody.toString()).post(BASE_URL + port + "/api/users/login");
-//        System.out.println(response); // io.restassured.internal.RestAssuredResponseImpl@280d1d8d
-        return response.jsonPath().getString("message");
-    }
 
     @LocalServerPort
     String port;
@@ -52,6 +41,19 @@ public class FitFinderStepDefinitions {
 
     @Autowired
     private OwnerRepository ownerRepository;
+
+    public String getSecurityKey() throws JSONException {
+        RestAssured.baseURI = BASE_URL;
+        request = RestAssured.given();
+
+        JSONObject requestBody = new JSONObject();
+        requestBody.put("email", "kim@gmail.com");
+        requestBody.put("password", "p");
+        request.header("Content-Type", "application/json");
+
+        response = request.body(requestBody.toString()).post(BASE_URL + port + "/api/owners/login");
+        return response.jsonPath().getString("message");
+    }
 
     // PUBLIC endpoints
 
@@ -85,9 +87,6 @@ public class FitFinderStepDefinitions {
     }
 
     // Scenario: User (gym owner) can log in
-    // PUBLIC - POST /api/owners/login (owner user story)
-
-    // Scenario: User can see all gyms belonging to an owner
     // PUBLIC - GET /api/owners/{ownerId} (owner user story)
     @Given("A gym owner account is available")
     public void aGymOwnerAccountIsAvailable(){
@@ -97,6 +96,17 @@ public class FitFinderStepDefinitions {
         Assert.assertEquals(200, response.getStatusCode());
     }
 
+    @When("I log in with valid credentials")
+    public void iLogInWithValidCredentials() throws JSONException {
+        Assert.assertNotEquals(getSecurityKey(), "Error : email or password is incorrect");
+    }
+
+    @Then("I see I am logged in")
+    public void iSeeIAmLoggedIn() throws JSONException {
+        Assert.assertNotNull(getSecurityKey());
+    }
+
+    // Scenario: User can see gym owner details
     // PUBLIC - GET /api/owners/{ownerId}/gyms (owner user story)
     @When("A list of gyms is available for the owner")
     public void aListOfGymsIsAvailableForTheOwner() {

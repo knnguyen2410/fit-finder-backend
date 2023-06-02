@@ -2,9 +2,11 @@ package com.example.fitfinder.controller;
 
 import com.example.fitfinder.models.Gym;
 import com.example.fitfinder.models.Owner;
+import com.example.fitfinder.models.login.LoginRequest;
 import com.example.fitfinder.service.OwnerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -24,6 +26,13 @@ public class OwnerController {
     @ResponseStatus(HttpStatus.CREATED)
     public Owner createOwner (@RequestBody @Valid Owner ownerObject){
         return ownerService.createOwner(ownerObject);
+    }
+
+    // Functionality: Logs into owner account
+    // Path: http://localhost:8080/api/owners/login
+    @PostMapping(path = "/login")
+    public ResponseEntity<?> loginOwner(@RequestBody LoginRequest loginRequest) {
+        return ownerService.loginOwner(loginRequest);
     }
 
     // Functionality: Returns owner account details
