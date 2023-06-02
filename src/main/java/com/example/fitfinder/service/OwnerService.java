@@ -31,6 +31,10 @@ public class OwnerService {
         this.gymRepository = gymRepository;
     }
 
+    public Owner findOwnerByEmail(String email){
+        return ownerRepository.findOwnerByEmail(email);
+    }
+
     // test not written yet (owner registration test)
     public Owner createOwner(Owner ownerObject){
         // Check that the name field is not empty when updating the name
