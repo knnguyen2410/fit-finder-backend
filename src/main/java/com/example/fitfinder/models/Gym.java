@@ -1,5 +1,6 @@
 package com.example.fitfinder.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
@@ -45,6 +46,7 @@ public class Gym {
     // many gyms can belong to one owner
     @ManyToOne
     @JoinColumn(name = "owner_id")
+    @JsonIgnore // excludes data from JSON object viewed by client
     private Owner owner;
 
     // one gym can have many pieces of equipment
