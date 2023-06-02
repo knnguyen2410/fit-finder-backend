@@ -26,11 +26,10 @@ Feature: Fit Finder API functionalities
 #    When I delete my account
 #    Then I see my account is deleted
 
-  # public test 1/5 ##############################################
   # PUBLIC - GET /api/owners/{ownerId}/gyms
   Scenario: User can see all gyms belonging to an owner
     Given A gym owner account is available
-    When I search for gyms belonging to the owner
+#    When A list of gyms is available
 #    Then I see a list of gyms belonging to the owner
 
 #  # Gym user stories

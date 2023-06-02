@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping(path = "/api/owners")
@@ -21,7 +22,7 @@ public class OwnerController {
     // Functionality: Returns owner account details
     // Path: http://localhost:8080/api/owners/{ownerId}
     @GetMapping(path = "/{ownerId}")
-    public Owner getOwnerById(@PathVariable Long ownerId){
+    public Optional<Owner> getOwnerById(@PathVariable Long ownerId){
         return ownerService.getOwnerById(ownerId);
     }
 

@@ -48,49 +48,52 @@ public class DataLoader implements CommandLineRunner {
             amenityRepository.count() == 0){
 
             // create owner
-            Owner kim = new Owner(1L, "Kim Nguyen", "knnguyen2410@gmail.com", "password");
-            ArrayList<Gym> kimGymList = new ArrayList<>();
+            Owner kim = new Owner(1L, "Kim", "kim@gmail.com", "p");
             ownerService.createOwner(kim);
 
             // create gym
             Gym perfectFit = new Gym(1L, "Perfect Fit", "Commercial Gym", "123 N. Street St.", "Chicago", "IL", 60654L, "Weekdays 5am - 10pm, Weekends 8am - 8pm", "(123) 123-1234", "New commercial gym in River North");
-            ArrayList<Equipment> perfectFitEquipmentList = new ArrayList<>();
-            ArrayList<Amenity> perfectFitAmenityList = new ArrayList<>();
-
-            perfectFit.setOwner(kim);
-
-            kimGymList.add(perfectFit);
-            kim.setGymList(kimGymList);
-
-            gymRepository.save(perfectFit);
 
             // create equipment
             Equipment weightPlate45 = new Equipment(1L, "Weight", "Trustworthy Brand", "45lb weight plate (single)", 20L, "One (1) 45lb weight plate");
             Equipment barbell = new Equipment(2L, "Bar", "Trustworthy Brand", "1 inch barbell", 5L, "One (1) 1 inch barbell");
             Equipment flatBenchPress = new Equipment(3L, "Bench", "Trustworthy Brand", "Flat bench press", 5L, "One (1) flat branch press, non-adjustable");
 
+            // create amenity
+            Amenity basketballCourt = new Amenity(1L, "Recreational facility", "Sports", "Basketball Court", "New basketball court");
+
+            // set owner for gym
+            perfectFit.setOwner(kim);
+            gymRepository.save(perfectFit);
+
+            // set gym for equipment
             weightPlate45.setGym(perfectFit);
             barbell.setGym(perfectFit);
             flatBenchPress.setGym(perfectFit);
-
-            perfectFitEquipmentList.add(weightPlate45);
-            perfectFitEquipmentList.add(barbell);
-            perfectFitEquipmentList.add(flatBenchPress);
-
-            perfectFit.setEquipmentList(perfectFitEquipmentList);
-
             equipmentRepository.save(weightPlate45);
             equipmentRepository.save(barbell);
             equipmentRepository.save(flatBenchPress);
 
-            // create amenity
-            Amenity basketballCourt = new Amenity(1L, "Recreational facility", "Sports", "Basketball Court", "New basketball court");
-
+            // set gym for amenity
             basketballCourt.setGym(perfectFit);
+            amenityRepository.save(basketballCourt);
+
+            // set gym list for owner
+            ArrayList<Gym> kimGymList = new ArrayList<>();
+            kimGymList.add(perfectFit);
+            kim.setGymList(kimGymList);
+
+            // set equipment list for gym
+            ArrayList<Equipment> perfectFitEquipmentList = new ArrayList<>();
+            perfectFitEquipmentList.add(weightPlate45);
+            perfectFitEquipmentList.add(barbell);
+            perfectFitEquipmentList.add(flatBenchPress);
+            perfectFit.setEquipmentList(perfectFitEquipmentList);
+
+            // set amenity list for gym
+            ArrayList<Amenity> perfectFitAmenityList = new ArrayList<>();
             perfectFitAmenityList.add(basketballCourt);
             perfectFit.setAmenityList(perfectFitAmenityList);
-
-            amenityRepository.save(basketballCourt);
         }
     }
 }
