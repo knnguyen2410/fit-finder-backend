@@ -1,13 +1,13 @@
 Feature: Fit Finder API functionalities
 
 #  # Owner user stories
-#  # PUBLIC - POST /api/auth/register
+#  # PUBLIC - POST /api/owners/register
 #  Scenario: User (gym owner) can create an account
 #    Given An email address is unused
 #    When I create an account with the email address
 #    Then I see my account is created
 #
-#  # PUBLIC - POST /api/auth/login
+#  # PUBLIC - POST /api/owners/login
 #  Scenario: User (gym owner) can log in
 #    Given An account is not logged in
 #    When I log in with valid credentials
