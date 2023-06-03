@@ -125,13 +125,13 @@ public class OwnerService {
     public Owner updateOwnerById(Long ownerId, Owner ownerObject){
         Optional<Owner> owner = ownerRepository.findById(getLoggedInOwner().getId());
         if (owner.isPresent()){
-            if (ownerObject.getName() != null){
+            if (ownerObject.getName() != null && !ownerObject.getName().isEmpty()){
                 owner.get().setName(ownerObject.getName());
             }
-            if (ownerObject.getEmail() != null){
+            if (ownerObject.getEmail() != null && !ownerObject.getEmail().isEmpty()){
                 owner.get().setEmail(ownerObject.getEmail());
             }
-            if (ownerObject.getPassword() != null){
+            if (ownerObject.getPassword() != null && !ownerObject.getPassword().isEmpty()){
                 owner.get().setPassword(passwordEncoder.encode(ownerObject.getPassword()));
             }
             return ownerRepository.save(owner.get());

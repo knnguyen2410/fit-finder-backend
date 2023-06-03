@@ -46,8 +46,8 @@ Feature: Fit Finder API functionalities
     Given I am logged into my account
     # PRIVATE - PUT /api/owners/{ownerId} (owner user story)
     When I update my account details
-#    Then I see my profile is updated
-#    # PRIVATE - DELETE /api/owners/{ownerId} (owner user story)
+    Then I see my profile is updated
+    # PRIVATE - DELETE /api/owners/{ownerId} (owner user story)
 #    When I delete my account
 #    Then I see my account is deleted
 

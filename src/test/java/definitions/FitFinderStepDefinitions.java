@@ -202,7 +202,7 @@ public class FitFinderStepDefinitions {
     @When("I update my account details")
     public void iUpdateMyAccountDetails() throws JSONException {
         RestAssured.baseURI = BASE_URL;
-        request = RestAssured.given();
+        RequestSpecification request = RestAssured.given();
 
         JSONObject requestBody = new JSONObject();
         requestBody.put("name", "updated kim");
@@ -214,4 +214,14 @@ public class FitFinderStepDefinitions {
         response = request.body(requestBody.toString()).put(BASE_URL + port + "/api/owners/1");
         Assert.assertEquals(200, response.getStatusCode());
     }
+
+    @Then("I see my profile is updated")
+    public void iSeeMyProfileIsUpdated() {
+        String updatedName = response.jsonPath().get("name");
+        String updatedEmail = response.jsonPath().get("email");
+        Assert.assertEquals("updated kim", updatedName);
+        Assert.assertEquals("updated@gmail.com", updatedEmail);
+    }
+
+
 }
