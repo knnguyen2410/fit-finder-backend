@@ -140,6 +140,16 @@ public class OwnerService {
         }
     }
 
+    public Owner deleteOwnerById(Long ownerId){
+        Optional<Owner> owner = ownerRepository.findById(getLoggedInOwner().getId());
+        if (owner.isPresent()){
+            ownerRepository.delete(owner.get());
+            return owner.get();
+        } else {
+            throw new NotFoundException("Owner with id " + ownerId + " not found");
+        }
+    }
+
     public List<Gym> getAllGymsByOwnerId(Long ownerId){
         Optional<Owner> owner = ownerRepository.findById(ownerId);
         if (owner.isPresent()){

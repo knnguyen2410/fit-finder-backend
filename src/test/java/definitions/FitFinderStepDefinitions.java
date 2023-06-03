@@ -55,6 +55,19 @@ public class FitFinderStepDefinitions {
         return response.jsonPath().getString("message");
     }
 
+    public String getSecurityKeySam() throws JSONException {
+        RestAssured.baseURI = BASE_URL;
+        request = RestAssured.given();
+
+        JSONObject requestBody = new JSONObject();
+        requestBody.put("email", "sam@gmail.com");
+        requestBody.put("password", "p");
+        request.header("Content-Type", "application/json");
+
+        response = request.body(requestBody.toString()).post(BASE_URL + port + "/api/owners/login");
+        return response.jsonPath().getString("message");
+    }
+
     // PUBLIC endpoints
 
     // Scenario: User (gym owner) can create an account
@@ -223,5 +236,19 @@ public class FitFinderStepDefinitions {
         Assert.assertEquals("updated@gmail.com", updatedEmail);
     }
 
+    // PRIVATE - DELETE /api/owners/{ownerId} (owner user story)
+    @When("I delete my account")
+    public void iDeleteMyAccount() throws JSONException {
+        RestAssured.baseURI = BASE_URL;
+        RequestSpecification request = RestAssured.given();
+        request.header("Content-Type", "application/json");
+        request.header("Authorization", "Bearer " + getSecurityKeySam());
+        response = request.delete(BASE_URL + port + "/api/owners/2");
+    }
 
+    @Then("I see my account is deleted")
+    public void iSeeMyAccountIsDeleted() {
+        Assert.assertEquals(200, response.getStatusCode());
+        Assert.assertFalse(ownerRepository.existsById(2L));
+    }
 }

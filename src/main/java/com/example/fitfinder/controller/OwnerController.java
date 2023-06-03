@@ -49,6 +49,14 @@ public class OwnerController {
         return ownerService.updateOwnerById(ownerId, ownerObject);
     }
 
+    // Functionality: Deletes owner account
+    // Path: http://localhost:8080/api/owners/{ownerId}
+    @DeleteMapping(path = "/{ownerId}")
+    public Owner deleteOwnerById(@PathVariable Long ownerId){
+        return ownerService.deleteOwnerById(ownerId);
+    }
+
+
     // Functionality: Returns a list of all gyms belonging to owner account
     // Path: http://localhost:8080/api/owners/{ownerId}/gyms
     @GetMapping(path = "/{ownerId}/gyms")

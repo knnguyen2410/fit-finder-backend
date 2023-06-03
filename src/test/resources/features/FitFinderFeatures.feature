@@ -48,8 +48,8 @@ Feature: Fit Finder API functionalities
     When I update my account details
     Then I see my profile is updated
     # PRIVATE - DELETE /api/owners/{ownerId} (owner user story)
-#    When I delete my account
-#    Then I see my account is deleted
+    When I delete my account
+    Then I see my account is deleted
 
 #  # PRIVATE - POST /api/gyms (gym user story)
 #  Scenario: User (gym owner) can create a gym
