@@ -51,11 +51,11 @@ Feature: Fit Finder API functionalities
     When I delete my account
     Then I see my account is deleted
 
-#  # PRIVATE - POST /api/gyms (gym user story)
-#  Scenario: User (gym owner) can create a gym
-#    Given I am logged into my account
-#    When I create a gym
-#    Then I see the gym is created
+  Scenario: User (gym owner) can create a gym
+    Given I am logged into my account
+    # PRIVATE - POST /api/gyms (gym user story)
+    When I create a gym
+    Then I see the gym is created
 
 #  # PRIVATE - /api/gyms/{gymId} (gym user story)
 #  Scenario: User (gym owner) can manage gyms

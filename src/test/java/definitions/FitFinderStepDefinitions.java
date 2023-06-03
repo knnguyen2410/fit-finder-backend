@@ -251,4 +251,31 @@ public class FitFinderStepDefinitions {
         Assert.assertEquals(200, response.getStatusCode());
         Assert.assertFalse(ownerRepository.existsById(2L));
     }
+
+    @When("I create a gym")
+    public void iCreateAGym() throws JSONException {
+        RestAssured.baseURI = BASE_URL;
+        RequestSpecification request = RestAssured.given();
+
+        JSONObject requestBody = new JSONObject();
+        requestBody.put("name", "Mindful Matter");
+        requestBody.put("category", "Yoga Studio");
+        requestBody.put("addressStreet", "789 N. Street St.");
+        requestBody.put("addressCity", "Chicago");
+        requestBody.put("addressState", "IL");
+        requestBody.put("addressZip", "60654L");
+        requestBody.put("hours", "Weekdays 5am - 10pm, Weekends 8am - 8pm");
+        requestBody.put("phone", "(123) 123-1234");
+        requestBody.put("details", "New yoga studio in River North");
+        request.header("Content-Type", "application/json");
+        request.header("Authorization", "Bearer " + getSecurityKey());
+
+        response = request.body(requestBody.toString()).post(BASE_URL + port + "/api/gyms");
+        Assert.assertEquals(200, response.getStatusCode());
+    }
+
+    @Then("I see the gym is created")
+    public void iSeeTheGymIsCreated() {
+        Assert.assertTrue(gymRepository.existsById(3L));
+    }
 }
