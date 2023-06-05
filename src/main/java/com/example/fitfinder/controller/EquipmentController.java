@@ -35,4 +35,11 @@ public class EquipmentController {
     public Equipment updateEquipmentByGymId(@PathVariable Long gymId, @PathVariable Long equipmentId, @RequestBody Equipment equipmentObject){
         return equipmentService.updateEquipmentByGymId(gymId, equipmentId, equipmentObject);
     }
+
+    // Functionality: Deletes a piece of equipment for gym
+    // Path: http://localhost:8080/api/gyms/{gymId}/equipment/{equipmentId}
+    @DeleteMapping(path = "/{equipmentId}")
+    public Equipment deleteEquipmentByGymId(@PathVariable Long gymId, @PathVariable Long equipmentId){
+        return equipmentService.deleteEquipmentByGymId(gymId, equipmentId);
+    }
 }

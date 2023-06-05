@@ -400,7 +400,7 @@ public class FitFinderStepDefinitions {
         request.header("Content-Type", "application/json");
         request.header("Authorization", "Bearer " + getSecurityKeyAsh());
 
-        response = request.body(requestBody.toString()).put(BASE_URL + port + "/api/gyms/3/equipment/1");
+        response = request.body(requestBody.toString()).put(BASE_URL + port + "/api/gyms/3/equipment/4");
         Assert.assertEquals(200, response.getStatusCode());
     }
 
@@ -416,5 +416,21 @@ public class FitFinderStepDefinitions {
         Assert.assertEquals("Updated 10lb dumbbell (single)", updatedName);
         Assert.assertEquals("20", updatedQuantity);
         Assert.assertEquals("Updated One (1) 10lb dumbbell", updatedDetails);
+    }
+
+    // PRIVATE - DELETE /api/gyms/{gymId}/equipment/{equipmentId} (equipment user story)
+    @When("I delete the equipment from the gym")
+    public void iDeleteTheEquipmentFromTheGym() throws JSONException {
+        RestAssured.baseURI = BASE_URL;
+        RequestSpecification request = RestAssured.given();
+        request.header("Content-Type", "application/json");
+        request.header("Authorization", "Bearer " + getSecurityKeyAsh());
+
+        response = request.delete(BASE_URL + port + "/api/gyms/3/equipment/4");
+    }
+
+    @Then("I see the equipment is deleted")
+    public void iSeeTheEquipmentIsDeleted() {
+        Assert.assertEquals(200, response.getStatusCode());
     }
 }

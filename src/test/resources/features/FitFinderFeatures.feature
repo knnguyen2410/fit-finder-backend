@@ -71,9 +71,9 @@ Feature: Fit Finder API functionalities
     # PRIVATE - PUT /api/gyms/{gymId}/equipment/{equipmentId} (equipment user story)
     When I update the equipment details for the gym
     Then I see the equipment is updated
-#    # PRIVATE - DELETE /api/gyms/{gymId}/equipment/{equipmentId} (equipment user story)
-#    When I delete the equipment from the gym
-#    Then I see the equipment is deleted
+    # PRIVATE - DELETE /api/gyms/{gymId}/equipment/{equipmentId} (equipment user story)
+    When I delete the equipment from the gym
+    Then I see the equipment is deleted
 
 #  Scenario: User (gym owner) can manage amenities for a gym
 #    Given I am logged into my account - ash
