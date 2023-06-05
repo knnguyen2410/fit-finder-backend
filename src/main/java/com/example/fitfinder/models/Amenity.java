@@ -23,6 +23,9 @@ public class Amenity {
     private String name;
 
     @Column
+    private Long quantity;
+
+    @Column
     private String details;
 
     // many amenities can belong to one gym
@@ -35,11 +38,12 @@ public class Amenity {
     public Amenity() {}
 
     // parameterized constructor
-    public Amenity(Long id, String category, String subcategory, String name, String details) {
+    public Amenity(Long id, String category, String subcategory, String name, Long quantity, String details) {
         this.id = id;
         this.category = category;
         this.subcategory = subcategory;
         this.name = name;
+        this.quantity = quantity;
         this.details = details;
     }
 
@@ -76,6 +80,14 @@ public class Amenity {
         this.name = name;
     }
 
+    public Long getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(Long quantity) {
+        this.quantity = quantity;
+    }
+
     public String getDetails() {
         return details;
     }
@@ -100,6 +112,7 @@ public class Amenity {
                 ", category='" + category + '\'' +
                 ", subcategory='" + subcategory + '\'' +
                 ", name='" + name + '\'' +
+                ", quantity='" + quantity + '\'' +
                 ", details='" + details + '\'' +
                 '}';
     }

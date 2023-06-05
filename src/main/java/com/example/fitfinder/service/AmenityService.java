@@ -1,15 +1,20 @@
 package com.example.fitfinder.service;
 
+import com.example.fitfinder.exceptions.AlreadyExistsException;
+import com.example.fitfinder.exceptions.BadRequestException;
 import com.example.fitfinder.exceptions.NotFoundException;
 import com.example.fitfinder.models.Amenity;
 import com.example.fitfinder.models.Equipment;
 import com.example.fitfinder.models.Gym;
+import com.example.fitfinder.models.Owner;
 import com.example.fitfinder.repository.AmenityRepository;
 import com.example.fitfinder.repository.GymRepository;
+import com.example.fitfinder.repository.OwnerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -19,6 +24,10 @@ public class AmenityService {
 
     private GymRepository gymRepository;
 
+    private OwnerRepository ownerRepository;
+
+    private OwnerService ownerService;
+
     @Autowired
     public void setAmenityRepository(AmenityRepository amenityRepository) {
         this.amenityRepository = amenityRepository;
@@ -27,6 +36,16 @@ public class AmenityService {
     @Autowired
     public void setGymRepository(GymRepository gymRepository) {
         this.gymRepository = gymRepository;
+    }
+
+    @Autowired
+    public void setOwnerRepository(OwnerRepository ownerRepository) {
+        this.ownerRepository = ownerRepository;
+    }
+
+    @Autowired
+    public void setOwnerService(OwnerService ownerService) {
+        this.ownerService = ownerService;
     }
 
     public List<Amenity> getAllAmenitiesByGymId(Long gymId){
@@ -40,6 +59,28 @@ public class AmenityService {
             }
         } else {
             throw new NotFoundException("Gym with id " + gymId + " not found");
+        }
+    }
+
+    public Amenity createAmenityByGymId(Long gymId, Amenity amenityObject) {
+        Optional<Owner> owner = ownerRepository.findById(ownerService.getLoggedInOwner().getId());
+        if (owner.isPresent()){
+            Optional<Gym> gym = gymRepository.findGymByIdAndOwnerId(gymId, owner.get().getId());
+            if (gym.isPresent()) {
+                if (Objects.equals(amenityObject.getName(), "") || amenityObject.getName() == null) {
+                    throw new BadRequestException("Amenity name is required");
+                }
+                if (amenityRepository.existsByName(amenityObject.getName())){
+                    throw new AlreadyExistsException("Amenity with name " + amenityObject.getName() + " already exists");
+                }
+                amenityObject.setGym(gym.get());
+                gym.get().getAmenityList().add(amenityObject);
+                return amenityRepository.save(amenityObject);
+            } else {
+                throw new NotFoundException("Gym with id " + gymId + " belonging to owner with id " + owner.get().getId() + " not found");
+            }
+        } else {
+            throw new NotFoundException("Owner with id " + owner.get().getId() + " not found");
         }
     }
 }

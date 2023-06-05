@@ -63,7 +63,7 @@ public class DataLoader implements CommandLineRunner {
             Equipment flatBenchPress = new Equipment(3L, "Bench", "Trustworthy Brand", "Flat bench press", 5L, "One (1) flat branch press, non-adjustable");
 
             // create amenity
-            Amenity basketballCourt = new Amenity(1L, "Recreational facility", "Sports", "Basketball Court", "New basketball court");
+            Amenity basketballCourt = new Amenity(1L, "Recreational facility", "Sports", "Basketball Court", 1L, "New basketball court");
 
             // set owner for gym
             perfectFit.setOwner(kim);

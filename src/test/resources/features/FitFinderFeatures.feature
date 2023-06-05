@@ -75,11 +75,11 @@ Feature: Fit Finder API functionalities
     When I delete the equipment from the gym
     Then I see the equipment is deleted
 
-#  Scenario: User (gym owner) can manage amenities for a gym
-#    Given I am logged into my account - ash
-#    # PRIVATE - POST /api/gyms/{gymId}/amenities (amenity user story)
-#    When I create an amenity for the gym
-#    Then I see the amenity is created for the gym
+  Scenario: User (gym owner) can manage amenities for a gym
+    Given I am logged into my account - ash
+    # PRIVATE - POST /api/gyms/{gymId}/amenities (amenity user story)
+    When I create an amenity for the gym
+    Then I see the amenity is created for the gym
 #    # PRIVATE - PUT /api/gyms/{gymId}/amenities/{amenityId} (amenity user story)
 #    When I update the amenity details for the gym
 #    Then I see the amenity is updated

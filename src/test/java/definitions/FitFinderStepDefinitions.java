@@ -433,4 +433,27 @@ public class FitFinderStepDefinitions {
     public void iSeeTheEquipmentIsDeleted() {
         Assert.assertEquals(200, response.getStatusCode());
     }
+
+    // PRIVATE - POST /api/gyms/{gymId}/amenities (amenity user story)
+    @When("I create an amenity for the gym")
+    public void iCreateAnAmenityForTheGym() throws JSONException {
+        RestAssured.baseURI = BASE_URL;
+        RequestSpecification request = RestAssured.given();
+
+        JSONObject requestBody = new JSONObject();
+        requestBody.put("category", "Spa");
+        requestBody.put("subcategory", "Sauna");
+        requestBody.put("name", "Infrared Sauna");
+        requestBody.put("quantity", "1");
+        requestBody.put("details", "New infrared sauna");
+        request.header("Content-Type", "application/json");
+        request.header("Authorization", "Bearer " + getSecurityKeyAsh());
+
+        response = request.body(requestBody.toString()).post(BASE_URL + port + "/api/gyms/3/amenities");
+    }
+
+    @Then("I see the amenity is created for the gym")
+    public void iSeeTheAmenityIsCreatedForTheGym() {
+        Assert.assertEquals(201, response.getStatusCode());
+    }
 }
