@@ -35,4 +35,11 @@ public class AmenityController {
     public Amenity updateAmenityByGymId(@PathVariable Long gymId, @PathVariable Long amenityId, @RequestBody Amenity amenityObject){
         return amenityService.updateAmenityByGymId(gymId, amenityId, amenityObject);
     }
+
+    // Functionality: Deletes an amenity for gym
+    // Path: http://localhost:8080/api/gyms/{gymId}/amenities/{amenityId}
+    @DeleteMapping(path = "/{amenityId}")
+    public Amenity deleteAmenityByGymId(@PathVariable Long gymId, @PathVariable Long amenityId){
+        return amenityService.deleteAmenityByGymId(gymId, amenityId);
+    }
 }

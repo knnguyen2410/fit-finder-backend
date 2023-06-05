@@ -51,7 +51,7 @@ Feature: Fit Finder API functionalities
     When I delete my account
     Then I see my account is deleted
 
-  Scenario: User (gym owner) can create a gym
+  Scenario: User (gym owner) manage a gym
     Given I am logged into my account - ash
     # PRIVATE - POST /api/gyms (gym user story)
     When I create a gym
@@ -83,6 +83,6 @@ Feature: Fit Finder API functionalities
     # PRIVATE - PUT /api/gyms/{gymId}/amenities/{amenityId} (amenity user story)
     When I update the amenity details for the gym
     Then I see the amenity is updated
-#    # PRIVATE - DELETE /api/gyms/{gymId}/amenities/{amenityId} (amenity user story)
-#    When I delete the amenity from the gym
-#    Then I see the amenity is deleted
+    # PRIVATE - DELETE /api/gyms/{gymId}/amenities/{amenityId} (amenity user story)
+    When I delete the amenity from the gym
+    Then I see the amenity is deleted

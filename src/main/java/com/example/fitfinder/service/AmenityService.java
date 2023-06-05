@@ -117,4 +117,25 @@ public class AmenityService {
             throw new NotFoundException("Owner with id " + owner.get().getId() + " not found");
         }
     }
+
+    public Amenity deleteAmenityByGymId(Long gymId, Long amenityId) {
+        Optional<Owner> owner = ownerRepository.findById(ownerService.getLoggedInOwner().getId());
+        if (owner.isPresent()) {
+            Optional<Gym> gym = gymRepository.findGymByIdAndOwnerId(gymId, owner.get().getId());
+            if (gym.isPresent()) {
+                Optional<Amenity> amenity = amenityRepository.findById(amenityId);
+                if (amenity.isPresent()) {
+                    amenityRepository.delete(amenity.get());
+                    return amenity.get();
+                } else {
+                    throw new NotFoundException("Amenity with id " + amenityId + " not found");
+                }
+            } else {
+                throw new NotFoundException("Gym with id " + gymId + " belonging to owner with id " + owner.get().getId() + " not found");
+            }
+        } else {
+            throw new NotFoundException("Owner with id " + owner.get().getId() + " not found");
+        }
+    }
+
 }
