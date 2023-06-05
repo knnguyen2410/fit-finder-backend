@@ -42,7 +42,7 @@ public class FitFinderStepDefinitions {
     @Autowired
     private OwnerRepository ownerRepository;
 
-    public String getSecurityKey() throws JSONException {
+    public String getSecurityKeyKim() throws JSONException {
         RestAssured.baseURI = BASE_URL;
         request = RestAssured.given();
 
@@ -61,6 +61,19 @@ public class FitFinderStepDefinitions {
 
         JSONObject requestBody = new JSONObject();
         requestBody.put("email", "sam@gmail.com");
+        requestBody.put("password", "p");
+        request.header("Content-Type", "application/json");
+
+        response = request.body(requestBody.toString()).post(BASE_URL + port + "/api/owners/login");
+        return response.jsonPath().getString("message");
+    }
+
+    public String getSecurityKeyAsh() throws JSONException {
+        RestAssured.baseURI = BASE_URL;
+        request = RestAssured.given();
+
+        JSONObject requestBody = new JSONObject();
+        requestBody.put("email", "ash@gmail.com");
         requestBody.put("password", "p");
         request.header("Content-Type", "application/json");
 
@@ -111,12 +124,12 @@ public class FitFinderStepDefinitions {
 
     @When("I log in with valid credentials")
     public void iLogInWithValidCredentials() throws JSONException {
-        Assert.assertNotEquals(getSecurityKey(), "Error : email or password is incorrect");
+        Assert.assertNotEquals(getSecurityKeyKim(), "Error : email or password is incorrect");
     }
 
     @Then("I see I am logged in")
     public void iSeeIAmLoggedIn() throws JSONException {
-        Assert.assertNotNull(getSecurityKey());
+        Assert.assertNotNull(getSecurityKeyKim());
     }
 
     // Scenario: User can see gym owner details
@@ -204,10 +217,10 @@ public class FitFinderStepDefinitions {
 
     // PRIVATE endpoints
 
-    @Given("I am logged into my account")
-    public void iAmLoggedIntoMyAccount() throws JSONException {
-        Assert.assertNotEquals(getSecurityKey(), "Error : email or password is incorrect");
-        Assert.assertNotNull(getSecurityKey());
+    @Given("I am logged into my account - kim")
+    public void iAmLoggedIntoMyAccountKim() throws JSONException {
+        Assert.assertNotEquals(getSecurityKeyKim(), "Error : email or password is incorrect");
+        Assert.assertNotNull(getSecurityKeyKim());
     }
 
     // Scenario: User (gym owner) can manage accounts details
@@ -222,7 +235,7 @@ public class FitFinderStepDefinitions {
         requestBody.put("email", "updated@gmail.com");
         requestBody.put("password", "up");
         request.header("Content-Type", "application/json");
-        request.header("Authorization", "Bearer " + getSecurityKey());
+        request.header("Authorization", "Bearer " + getSecurityKeyKim());
 
         response = request.body(requestBody.toString()).put(BASE_URL + port + "/api/owners/1");
         Assert.assertEquals(200, response.getStatusCode());
@@ -243,13 +256,22 @@ public class FitFinderStepDefinitions {
         RequestSpecification request = RestAssured.given();
         request.header("Content-Type", "application/json");
         request.header("Authorization", "Bearer " + getSecurityKeySam());
+
         response = request.delete(BASE_URL + port + "/api/owners/2");
+        Assert.assertEquals(200, response.getStatusCode());
     }
 
     @Then("I see my account is deleted")
     public void iSeeMyAccountIsDeleted() {
-        Assert.assertEquals(200, response.getStatusCode());
         Assert.assertFalse(ownerRepository.existsById(2L));
+    }
+
+    // Scenario: User (gym owner) can create a gym
+    // PRIVATE - POST /api/gyms (gym user story)
+    @Given("I am logged into my account - ash")
+    public void iAmLoggedIntoMyAccountAsh() throws JSONException {
+        Assert.assertNotEquals(getSecurityKeyAsh(), "Error : email or password is incorrect");
+        Assert.assertNotNull(getSecurityKeyAsh());
     }
 
     @When("I create a gym")
@@ -263,19 +285,18 @@ public class FitFinderStepDefinitions {
         requestBody.put("addressStreet", "789 N. Street St.");
         requestBody.put("addressCity", "Chicago");
         requestBody.put("addressState", "IL");
-        requestBody.put("addressZip", "60654L");
+        requestBody.put("addressZip", "60654");
         requestBody.put("hours", "Weekdays 5am - 10pm, Weekends 8am - 8pm");
         requestBody.put("phone", "(123) 123-1234");
         requestBody.put("details", "New yoga studio in River North");
         request.header("Content-Type", "application/json");
-        request.header("Authorization", "Bearer " + getSecurityKey());
+        request.header("Authorization", "Bearer " + getSecurityKeyAsh());
 
         response = request.body(requestBody.toString()).post(BASE_URL + port + "/api/gyms");
-        Assert.assertEquals(200, response.getStatusCode());
     }
 
     @Then("I see the gym is created")
     public void iSeeTheGymIsCreated() {
-        Assert.assertTrue(gymRepository.existsById(3L));
+        Assert.assertEquals(201, response.getStatusCode());
     }
 }

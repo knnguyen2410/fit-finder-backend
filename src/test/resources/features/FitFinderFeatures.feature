@@ -43,7 +43,7 @@ Feature: Fit Finder API functionalities
   ## PRIVATE endpoints
 
   Scenario: User (gym owner) can manage accounts details
-    Given I am logged into my account
+    Given I am logged into my account - kim
     # PRIVATE - PUT /api/owners/{ownerId} (owner user story)
     When I update my account details
     Then I see my profile is updated
@@ -52,7 +52,7 @@ Feature: Fit Finder API functionalities
     Then I see my account is deleted
 
   Scenario: User (gym owner) can create a gym
-    Given I am logged into my account
+    Given I am logged into my account - ash
     # PRIVATE - POST /api/gyms (gym user story)
     When I create a gym
     Then I see the gym is created

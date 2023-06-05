@@ -17,21 +17,23 @@ public class GymService {
 
     private GymRepository gymRepository;
 
+    private OwnerService ownerService;
+
     @Autowired
     public void setGymRepository(GymRepository gymRepository) {
         this.gymRepository = gymRepository;
+    }
+
+    @Autowired
+    public void setOwnerService(OwnerService ownerService) {
+        this.ownerService = ownerService;
     }
 
     public Gym createGym(Gym gymObject){
         if (gymRepository.existsByName(gymObject.getName()) && gymRepository.existsByAddressStreet(gymObject.getAddressStreet())){
             throw new AlreadyExistsException("Gym with the name " + gymObject.getName() + " and street address " + gymObject.getAddressStreet() + " already exists");
         } else {
-            if (Objects.equals(gymObject.getName(), "") || gymObject.getName() == null) {
-                throw new BadRequestException("Gym name is required");
-            }
-            if (Objects.equals(gymObject.getAddressStreet(), "") || gymObject.getAddressStreet() == null) {
-                throw new BadRequestException("Gym street address is required");
-            }
+            gymObject.setOwner(ownerService.getLoggedInOwner());
             return gymRepository.save(gymObject);
         }
     }

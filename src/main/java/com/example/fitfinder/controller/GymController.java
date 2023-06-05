@@ -3,6 +3,7 @@ package com.example.fitfinder.controller;
 import com.example.fitfinder.models.Gym;
 import com.example.fitfinder.service.GymService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -14,6 +15,7 @@ public class GymController {
     @Autowired
     private GymService gymService;
 
+    @ResponseStatus(HttpStatus.CREATED)
     @PostMapping(path = "")
     public Gym createGym(@RequestBody Gym gymObject){
         return gymService.createGym(gymObject);
