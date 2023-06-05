@@ -14,6 +14,10 @@ public interface GymRepository extends JpaRepository<Gym, Long> {
 
     Optional<Gym> findByName(String name);
 
+    boolean existsByAddressStreet(String addressStreet);
+
+    boolean existsByName(String name);
+
     Optional<Gym> findGymByIdAndOwnerId(Long gymId, Long ownerId);
 
     List<Gym> findByOwnerId(Long ownerId);

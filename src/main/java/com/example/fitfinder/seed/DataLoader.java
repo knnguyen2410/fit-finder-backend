@@ -8,9 +8,6 @@ import com.example.fitfinder.repository.AmenityRepository;
 import com.example.fitfinder.repository.EquipmentRepository;
 import com.example.fitfinder.repository.GymRepository;
 import com.example.fitfinder.repository.OwnerRepository;
-import com.example.fitfinder.service.AmenityService;
-import com.example.fitfinder.service.EquipmentService;
-import com.example.fitfinder.service.GymService;
 import com.example.fitfinder.service.OwnerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -48,14 +45,17 @@ public class DataLoader implements CommandLineRunner {
             amenityRepository.count() == 0){
 
             // create owner
-            Owner kim = new Owner(1L, "Kim", "kim@gmail.com", "p");
-            Owner sam = new Owner(2L, "Sam", "sam@gmail.com", "p");
+            Owner kim = new Owner(1L, "kim", "kim@gmail.com", "p");
+            Owner sam = new Owner(2L, "sam", "sam@gmail.com", "p");
+            Owner ash = new Owner(3L, "ash", "ash@gmail.com", "p");
             ownerService.createOwner(kim);
             ownerService.createOwner(sam);
+            ownerService.createOwner(ash);
 
             // create gym
             Gym perfectFit = new Gym(1L, "Perfect Fit", "Commercial Gym", "123 N. Street St.", "Chicago", "IL", 60654L, "Weekdays 5am - 10pm, Weekends 8am - 8pm", "(123) 123-1234", "New commercial gym in River North");
-            Gym perfectBoxing = new Gym(2L, "Perfect Boxing Gym", "Boxing Gym", "321 N. Street St.", "Chicago", "IL", 60654L, "Weekdays 5am - 10pm, Weekends 8am - 8pm", "(123) 123-1234", "New boxing gym in River North");
+            Gym perfectBoxing = new Gym(2L, "Perfect Boxing Gym", "Boxing Gym", "456 N. Street St.", "Chicago", "IL", 60654L, "Weekdays 5am - 10pm, Weekends 8am - 8pm", "(123) 123-1234", "New boxing gym in River North");
+            Gym perfectMuayThai = new Gym(3L, "Perfect Muay Thai", "Muay Thai Gym", "789 N. Street St.", "Chicago", "IL", 60654L, "Weekdays 5am - 10pm, Weekends 8am - 8pm", "(123) 123-1234", "New muay thai gym in River North");
 
             // create equipment
             Equipment weightPlate45 = new Equipment(1L, "Weight", "Trustworthy Brand", "45lb weight plate (single)", 20L, "One (1) 45lb weight plate");
@@ -63,13 +63,15 @@ public class DataLoader implements CommandLineRunner {
             Equipment flatBenchPress = new Equipment(3L, "Bench", "Trustworthy Brand", "Flat bench press", 5L, "One (1) flat branch press, non-adjustable");
 
             // create amenity
-            Amenity basketballCourt = new Amenity(1L, "Recreational facility", "Sports", "Basketball Court", "New basketball court");
+            Amenity basketballCourt = new Amenity(1L, "Recreational facility", "Sports", "Basketball Court", 1L, "New basketball court");
 
             // set owner for gym
             perfectFit.setOwner(kim);
             perfectBoxing.setOwner(sam);
+            perfectMuayThai.setOwner(ash);
             gymRepository.save(perfectFit);
             gymRepository.save(perfectBoxing);
+            gymRepository.save(perfectMuayThai);
 
             // set gym for equipment
             weightPlate45.setGym(perfectFit);
@@ -87,6 +89,7 @@ public class DataLoader implements CommandLineRunner {
             ArrayList<Gym> kimGymList = new ArrayList<>();
             kimGymList.add(perfectFit);
             kim.setGymList(kimGymList);
+            ownerRepository.save(kim);
 
             // set equipment list for gym
             ArrayList<Equipment> perfectFitEquipmentList = new ArrayList<>();
@@ -99,6 +102,8 @@ public class DataLoader implements CommandLineRunner {
             ArrayList<Amenity> perfectFitAmenityList = new ArrayList<>();
             perfectFitAmenityList.add(basketballCourt);
             perfectFit.setAmenityList(perfectFitAmenityList);
+
+            gymRepository.save(perfectFit);
         }
     }
 }
