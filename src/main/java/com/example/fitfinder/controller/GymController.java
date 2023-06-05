@@ -38,4 +38,11 @@ public class GymController {
     public Gym updateGymById(@PathVariable Long gymId, @RequestBody Gym gymObject){
         return gymService.updateGymById(gymId, gymObject);
     }
+
+    // Functionality: Deletes gym
+    // Path: http://localhost:8080/api/gyms/{gymId}
+    @DeleteMapping(path = "/{gymId}")
+    public Gym deleteGymById(@PathVariable Long gymId){
+        return gymService.deleteGymById(gymId);
+    }
 }

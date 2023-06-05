@@ -59,9 +59,9 @@ Feature: Fit Finder API functionalities
     # PRIVATE - PUT /api/gyms/{gymId} (gym user story)
     When I update the details for gym
     Then I see the gym is updated
-#    # PRIVATE - DELETE /api/gyms/{gymId} (gym user story)
-#    When I delete gym
-#    Then I see the gym is deleted
+    # PRIVATE - DELETE /api/gyms/{gymId} (gym user story)
+    When I delete gym
+    Then I see the gym is deleted
 
 #  # Equipment user stories (equipment user story)
 #  # PRIVATE - POST /api/gyms/{gymId}/equipment

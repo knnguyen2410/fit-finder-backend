@@ -98,4 +98,14 @@ public class GymService {
             throw new NotFoundException("Gym with id " + gymId + " not found");
         }
     }
+
+    public Gym deleteGymById(Long gymId){
+        Optional<Gym> gym = gymRepository.findById(gymId);
+        if (gym.isPresent()){
+            gymRepository.delete(gym.get());
+            return gym.get();
+        } else {
+            throw new NotFoundException("Gym with id " + gymId + " not found");
+        }
+    }
 }

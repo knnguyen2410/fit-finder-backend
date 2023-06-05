@@ -344,4 +344,20 @@ public class FitFinderStepDefinitions {
         Assert.assertEquals("Updated (123) 123-1234", updatedPhone);
         Assert.assertEquals("Updated New yoga studio in River North", updatedDetails);
     }
+
+    // PRIVATE - DELETE /api/gyms/{gymId} (gym user story)
+    @When("I delete gym")
+    public void iDeleteGym() throws JSONException {
+        RestAssured.baseURI = BASE_URL;
+        RequestSpecification request = RestAssured.given();
+        request.header("Content-Type", "application/json");
+        request.header("Authorization", "Bearer " + getSecurityKeySam());
+
+        response = request.delete(BASE_URL + port + "/api/gyms/3");
+    }
+
+    @Then("I see the gym is deleted")
+    public void iSeeTheGymIsDeleted() {
+        Assert.assertFalse(gymRepository.existsById(3L));
+    }
 }
