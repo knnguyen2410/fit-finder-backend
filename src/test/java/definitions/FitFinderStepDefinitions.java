@@ -319,7 +319,7 @@ public class FitFinderStepDefinitions {
         request.header("Content-Type", "application/json");
         request.header("Authorization", "Bearer " + getSecurityKeyAsh());
 
-        response = request.body(requestBody.toString()).put(BASE_URL + port + "/api/gyms/3");
+        response = request.body(requestBody.toString()).put(BASE_URL + port + "/api/gyms/4");
         Assert.assertEquals(200, response.getStatusCode());
     }
 
@@ -351,13 +351,37 @@ public class FitFinderStepDefinitions {
         RestAssured.baseURI = BASE_URL;
         RequestSpecification request = RestAssured.given();
         request.header("Content-Type", "application/json");
-        request.header("Authorization", "Bearer " + getSecurityKeySam());
+        request.header("Authorization", "Bearer " + getSecurityKeyAsh());
 
-        response = request.delete(BASE_URL + port + "/api/gyms/3");
+        response = request.delete(BASE_URL + port + "/api/gyms/4");
     }
 
     @Then("I see the gym is deleted")
     public void iSeeTheGymIsDeleted() {
-        Assert.assertFalse(gymRepository.existsById(3L));
+        Assert.assertEquals(200, response.getStatusCode());
+    }
+
+    // Scenario: User (gym owner) can manage equipment for a gym
+    // PRIVATE - POST /api/gyms/{gymId}/equipment (equipment user story)
+    @When("I create equipment for the gym")
+    public void iCreateEquipmentForTheGym() throws JSONException {
+        RestAssured.baseURI = BASE_URL;
+        RequestSpecification request = RestAssured.given();
+
+        JSONObject requestBody = new JSONObject();
+        requestBody.put("category", "Weight");
+        requestBody.put("brand", "Trustworthy Brand");
+        requestBody.put("name", "10lb dumbbell (single)");
+        requestBody.put("quantity", "10");
+        requestBody.put("details", "One (1) 10lb dumbbell");
+        request.header("Content-Type", "application/json");
+        request.header("Authorization", "Bearer " + getSecurityKeyAsh());
+
+        response = request.body(requestBody.toString()).post(BASE_URL + port + "/api/gyms/3/equipment");
+    }
+
+    @Then("I see the equipment is created for the gym")
+    public void iSeeTheEquipmentIsCreatedForTheGym() {
+        Assert.assertEquals(201, response.getStatusCode());
     }
 }

@@ -63,40 +63,26 @@ Feature: Fit Finder API functionalities
     When I delete gym
     Then I see the gym is deleted
 
-#  # Equipment user stories (equipment user story)
-#  # PRIVATE - POST /api/gyms/{gymId}/equipment
-#  Scenario: User (gym owner) can create equipment for a gym
-#    Given I am logged into my account
-#    And A gym is available
-#    When I create equipment for the gym
-#    Then I see the equipment is created for the gym
-
-#  # PRIVATE - /api/gyms/{gymId}/equipment/{equipmentId}
-#  Scenario: User (gym owner) can manage equipment for a gym
-#    Given I am logged into my account
-#    And A gym is available
-#    # PUT
+  Scenario: User (gym owner) can manage equipment for a gym
+    Given I am logged into my account - ash
+    # PRIVATE - POST /api/gyms/{gymId}/equipment (equipment user story)
+    When I create equipment for the gym
+    Then I see the equipment is created for the gym
+#    # PRIVATE - PUT /api/gyms/{gymId}/equipment/{equipmentId} (equipment user story)
 #    When I update the equipment details for the gym
 #    Then I see the equipment is updated
-#    # DELETE
-#    When I delete the equipment equipment from the gym
+#    # PRIVATE - DELETE /api/gyms/{gymId}/equipment/{equipmentId} (equipment user story)
+#    When I delete the equipment from the gym
 #    Then I see the equipment is deleted
-#
-#  # Amenity user stories
-#  # PRIVATE - POST /api/gyms/{gymId}/amenities (amenity user story)
-#  Scenario: User (gym owner) can create an amenity for a gym
-#    Given I am logged into my account
-#    And A gym is available
+
+#  Scenario: User (gym owner) can manage amenities for a gym
+#    Given I am logged into my account - ash
+#    # PRIVATE - POST /api/gyms/{gymId}/amenities (amenity user story)
 #    When I create an amenity for the gym
 #    Then I see the amenity is created for the gym
-
-#  # PRIVATE - /api/gyms/{gymId}/amenities/{amenityId} (amenity user story)
-#  Scenario: User (gym owner) can manage amenities for a gym
-#    Given I am logged into my account
-#    And A gym is available
-#    # PUT
+#    # PRIVATE - PUT /api/gyms/{gymId}/amenities/{amenityId} (amenity user story)
 #    When I update the amenity details for the gym
 #    Then I see the amenity is updated
-#    # DELETE
-#    When I delete an amenity from the gym
+#    # PRIVATE - DELETE /api/gyms/{gymId}/amenities/{amenityId} (amenity user story)
+#    When I delete the amenity from the gym
 #    Then I see the amenity is deleted
