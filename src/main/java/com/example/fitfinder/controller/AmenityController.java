@@ -28,4 +28,11 @@ public class AmenityController {
     public Amenity createAmenityByGymId(@PathVariable Long gymId, @RequestBody Amenity amenityObject){
         return amenityService.createAmenityByGymId(gymId, amenityObject);
     }
+
+    // Functionality: Updates amenity details for gym
+    // Path: http://localhost:8080/api/gyms/{gymId}/amenities/{amenityId}
+    @PutMapping(path = "/{amenityId}")
+    public Amenity updateAmenityByGymId(@PathVariable Long gymId, @PathVariable Long amenityId, @RequestBody Amenity amenityObject){
+        return amenityService.updateAmenityByGymId(gymId, amenityId, amenityObject);
+    }
 }

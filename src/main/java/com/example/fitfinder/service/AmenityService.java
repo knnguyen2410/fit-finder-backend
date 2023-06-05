@@ -83,4 +83,38 @@ public class AmenityService {
             throw new NotFoundException("Owner with id " + owner.get().getId() + " not found");
         }
     }
+
+    public Amenity updateAmenityByGymId(Long gymId, Long amenityId, Amenity amenityObject){
+        Optional<Owner> owner = ownerRepository.findById(ownerService.getLoggedInOwner().getId());
+        if (owner.isPresent()){
+            Optional<Gym> gym = gymRepository.findGymByIdAndOwnerId(gymId, owner.get().getId());
+            if (gym.isPresent()) {
+                Optional<Amenity> amenity = amenityRepository.findById(amenityId);
+                if (amenity.isPresent()){
+                    if (amenityObject.getCategory() != null && !amenityObject.getCategory().isEmpty()){
+                        amenity.get().setCategory(amenityObject.getCategory());
+                    }
+                    if (amenityObject.getSubcategory() != null && !amenityObject.getSubcategory().isEmpty()){
+                        amenity.get().setSubcategory(amenityObject.getSubcategory());
+                    }
+                    if (amenityObject.getName() != null && !amenityObject.getName().isEmpty()){
+                        amenity.get().setName(amenityObject.getName());
+                    }
+                    if (amenityObject.getQuantity() != null){
+                        amenity.get().setQuantity(amenityObject.getQuantity());
+                    }
+                    if (amenityObject.getDetails() != null && !amenityObject.getDetails().isEmpty()){
+                        amenity.get().setDetails(amenityObject.getDetails());
+                    }
+                    return amenityRepository.save(amenity.get());
+                } else {
+                    throw new NotFoundException("Amenity with id " + amenityId + " not found");
+                }
+            } else {
+                throw new NotFoundException("Gym with id " + gymId + " belonging to owner with id " + owner.get().getId() + " not found");
+            }
+        } else {
+            throw new NotFoundException("Owner with id " + owner.get().getId() + " not found");
+        }
+    }
 }

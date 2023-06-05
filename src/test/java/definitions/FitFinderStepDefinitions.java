@@ -456,4 +456,37 @@ public class FitFinderStepDefinitions {
     public void iSeeTheAmenityIsCreatedForTheGym() {
         Assert.assertEquals(201, response.getStatusCode());
     }
+
+    // PRIVATE - PUT /api/gyms/{gymId}/amenities/{amenityId} (amenity user story)
+    @When("I update the amenity details for the gym")
+    public void iUpdateTheAmenityDetailsForTheGym() throws JSONException {
+        RestAssured.baseURI = BASE_URL;
+        RequestSpecification request = RestAssured.given();
+
+        JSONObject requestBody = new JSONObject();
+        requestBody.put("category", "Updated Spa");
+        requestBody.put("subcategory", "Updated Sauna");
+        requestBody.put("name", "Updated Infrared Sauna");
+        requestBody.put("quantity", "5");
+        requestBody.put("details", "Updated New infrared sauna");
+        request.header("Content-Type", "application/json");
+        request.header("Authorization", "Bearer " + getSecurityKeyAsh());
+
+        response = request.body(requestBody.toString()).put(BASE_URL + port + "/api/gyms/3/amenities/2");
+        Assert.assertEquals(200, response.getStatusCode());
+    }
+
+    @Then("I see the amenity is updated")
+    public void iSeeTheAmenityIsUpdated() {
+        String updatedCategory = response.jsonPath().get("category");
+        String updatedSubcategory = response.jsonPath().get("subcategory");
+        String updatedName = response.jsonPath().get("name");
+        String updatedQuantity = response.jsonPath().get("quantity").toString();
+        String updatedDetails = response.jsonPath().get("details");
+        Assert.assertEquals("Updated Spa", updatedCategory);
+        Assert.assertEquals("Updated Sauna", updatedSubcategory);
+        Assert.assertEquals("Updated Infrared Sauna", updatedName);
+        Assert.assertEquals("5", updatedQuantity);
+        Assert.assertEquals("Updated New infrared sauna", updatedDetails);
+    }
 }

@@ -80,9 +80,9 @@ Feature: Fit Finder API functionalities
     # PRIVATE - POST /api/gyms/{gymId}/amenities (amenity user story)
     When I create an amenity for the gym
     Then I see the amenity is created for the gym
-#    # PRIVATE - PUT /api/gyms/{gymId}/amenities/{amenityId} (amenity user story)
-#    When I update the amenity details for the gym
-#    Then I see the amenity is updated
+    # PRIVATE - PUT /api/gyms/{gymId}/amenities/{amenityId} (amenity user story)
+    When I update the amenity details for the gym
+    Then I see the amenity is updated
 #    # PRIVATE - DELETE /api/gyms/{gymId}/amenities/{amenityId} (amenity user story)
 #    When I delete the amenity from the gym
 #    Then I see the amenity is deleted
