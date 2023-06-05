@@ -61,7 +61,7 @@ public class EquipmentService {
         }
     }
 
-    public Equipment createEquipmentForGymId(Long gymId, Equipment equipmentObject) {
+    public Equipment createEquipmentByGymId(Long gymId, Equipment equipmentObject) {
         Optional<Owner> owner = ownerRepository.findById(ownerService.getLoggedInOwner().getId());
         if (owner.isPresent()){
             Optional<Gym> gym = gymRepository.findGymByIdAndOwnerId(gymId, owner.get().getId());
@@ -75,6 +75,40 @@ public class EquipmentService {
                 equipmentObject.setGym(gym.get());
                 gym.get().getEquipmentList().add(equipmentObject);
                 return equipmentRepository.save(equipmentObject);
+            } else {
+                throw new NotFoundException("Gym with id " + gymId + " belonging to owner with id " + owner.get().getId() + " not found");
+            }
+        } else {
+            throw new NotFoundException("Owner with id " + owner.get().getId() + " not found");
+        }
+    }
+
+    public Equipment updateEquipmentByGymId(Long gymId, Long equipmentId, Equipment equipmentObject){
+        Optional<Owner> owner = ownerRepository.findById(ownerService.getLoggedInOwner().getId());
+        if (owner.isPresent()){
+            Optional<Gym> gym = gymRepository.findGymByIdAndOwnerId(gymId, owner.get().getId());
+            if (gym.isPresent()) {
+                Optional<Equipment> equipment = equipmentRepository.findById(equipmentId);
+                if (equipment.isPresent()){
+                    if (equipmentObject.getCategory() != null && !equipmentObject.getCategory().isEmpty()){
+                        equipment.get().setCategory(equipmentObject.getCategory());
+                    }
+                    if (equipmentObject.getBrand() != null && !equipmentObject.getBrand().isEmpty()){
+                        equipment.get().setBrand(equipmentObject.getBrand());
+                    }
+                    if (equipmentObject.getName() != null && !equipmentObject.getName().isEmpty()){
+                        equipment.get().setName(equipmentObject.getName());
+                    }
+                    if (equipmentObject.getQuantity() != null){
+                        equipment.get().setQuantity(equipmentObject.getQuantity());
+                    }
+                    if (equipmentObject.getDetails() != null && !equipmentObject.getDetails().isEmpty()){
+                        equipment.get().setDetails(equipmentObject.getDetails());
+                    }
+                    return equipmentRepository.save(equipment.get());
+                } else {
+                    throw new NotFoundException("Equipment with id " + equipmentId + " not found");
+                }
             } else {
                 throw new NotFoundException("Gym with id " + gymId + " belonging to owner with id " + owner.get().getId() + " not found");
             }

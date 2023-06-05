@@ -68,9 +68,9 @@ Feature: Fit Finder API functionalities
     # PRIVATE - POST /api/gyms/{gymId}/equipment (equipment user story)
     When I create equipment for the gym
     Then I see the equipment is created for the gym
-#    # PRIVATE - PUT /api/gyms/{gymId}/equipment/{equipmentId} (equipment user story)
-#    When I update the equipment details for the gym
-#    Then I see the equipment is updated
+    # PRIVATE - PUT /api/gyms/{gymId}/equipment/{equipmentId} (equipment user story)
+    When I update the equipment details for the gym
+    Then I see the equipment is updated
 #    # PRIVATE - DELETE /api/gyms/{gymId}/equipment/{equipmentId} (equipment user story)
 #    When I delete the equipment from the gym
 #    Then I see the equipment is deleted

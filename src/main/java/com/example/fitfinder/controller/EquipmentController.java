@@ -25,7 +25,14 @@ public class EquipmentController {
     // Path: http://localhost:8080/api/gyms/{gymId}/equipment
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping(path = "")
-    public Equipment createEquipmentForGymId(@PathVariable Long gymId, @RequestBody Equipment equipmentObject){
-        return equipmentService.createEquipmentForGymId(gymId, equipmentObject);
+    public Equipment createEquipmentByGymId(@PathVariable Long gymId, @RequestBody Equipment equipmentObject){
+        return equipmentService.createEquipmentByGymId(gymId, equipmentObject);
+    }
+
+    // Functionality: Updates a piece of equipment details for gym
+    // Path: http://localhost:8080/api/gyms/{gymId}/equipment/{equipmentId}
+    @PutMapping(path = "/{equipmentId}")
+    public Equipment updateEquipmentByGymId(@PathVariable Long gymId, @PathVariable Long equipmentId, @RequestBody Equipment equipmentObject){
+        return equipmentService.updateEquipmentByGymId(gymId, equipmentId, equipmentObject);
     }
 }
