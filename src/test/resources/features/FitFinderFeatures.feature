@@ -56,15 +56,10 @@ Feature: Fit Finder API functionalities
     # PRIVATE - POST /api/gyms (gym user story)
     When I create a gym
     Then I see the gym is created
-
-#  # PRIVATE - /api/gyms/{gymId} (gym user story)
-#  Scenario: User (gym owner) can manage gyms
-#    Given I am logged into my account
-#    And A gym is available
-#    # PUT
-#    When I update the details for gym
-#    Then I see the gym is updated
-#    # DELETE
+    # PRIVATE - PUT /api/gyms/{gymId} (gym user story)
+    When I update the details for gym
+    Then I see the gym is updated
+#    # PRIVATE - DELETE /api/gyms/{gymId} (gym user story)
 #    When I delete gym
 #    Then I see the gym is deleted
 

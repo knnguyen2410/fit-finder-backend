@@ -1,6 +1,7 @@
 package com.example.fitfinder.controller;
 
 import com.example.fitfinder.models.Gym;
+import com.example.fitfinder.models.Owner;
 import com.example.fitfinder.service.GymService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -29,5 +30,12 @@ public class GymController {
     @GetMapping(path = "/{gymId}")
     public Gym getGymById(@PathVariable Long gymId){
         return gymService.getGymById(gymId);
+    }
+
+    // Functionality: Updates gym details
+    // Path: http://localhost:8080/api/gyms/{gymId}
+    @PutMapping(path = "/{gymId}")
+    public Gym updateGymById(@PathVariable Long gymId, @RequestBody Gym gymObject){
+        return gymService.updateGymById(gymId, gymObject);
     }
 }

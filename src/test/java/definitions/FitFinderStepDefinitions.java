@@ -299,4 +299,49 @@ public class FitFinderStepDefinitions {
     public void iSeeTheGymIsCreated() {
         Assert.assertEquals(201, response.getStatusCode());
     }
+
+    // PRIVATE - PUT /api/gyms/{gymId} (gym user story)
+    @When("I update the details for gym")
+    public void iUpdateTheDetailsForGym() throws JSONException {
+        RestAssured.baseURI = BASE_URL;
+        RequestSpecification request = RestAssured.given();
+
+        JSONObject requestBody = new JSONObject();
+        requestBody.put("name", "Updated Mindful Matter");
+        requestBody.put("category", "Updated Yoga Studio");
+        requestBody.put("addressStreet", "Updated 789 N. Street St.");
+        requestBody.put("addressCity", "Updated Chicago");
+        requestBody.put("addressState", "Updated IL");
+        requestBody.put("addressZip", "60655");
+        requestBody.put("hours", "Updated Weekdays 5am - 10pm, Weekends 8am - 8pm");
+        requestBody.put("phone", "Updated (123) 123-1234");
+        requestBody.put("details", "Updated New yoga studio in River North");
+        request.header("Content-Type", "application/json");
+        request.header("Authorization", "Bearer " + getSecurityKeyAsh());
+
+        response = request.body(requestBody.toString()).put(BASE_URL + port + "/api/gyms/3");
+        Assert.assertEquals(200, response.getStatusCode());
+    }
+
+    @Then("I see the gym is updated")
+    public void iSeeTheGymIsUpdated() {
+        String updatedName = response.jsonPath().get("name");
+        String updatedCategory = response.jsonPath().get("category");
+        String updatedAddressStreet = response.jsonPath().get("addressStreet");
+        String updatedAddressCity = response.jsonPath().get("addressCity");
+        String updatedAddressState = response.jsonPath().get("addressState");
+        String updatedAddressZip = response.jsonPath().get("addressZip").toString();
+        String updatedHours = response.jsonPath().get("hours");
+        String updatedPhone = response.jsonPath().get("phone");
+        String updatedDetails = response.jsonPath().get("details");
+        Assert.assertEquals("Updated Mindful Matter", updatedName);
+        Assert.assertEquals("Updated Yoga Studio", updatedCategory);
+        Assert.assertEquals("Updated 789 N. Street St.", updatedAddressStreet);
+        Assert.assertEquals("Updated Chicago", updatedAddressCity);
+        Assert.assertEquals("Updated IL", updatedAddressState);
+        Assert.assertEquals("60655", updatedAddressZip);
+        Assert.assertEquals("Updated Weekdays 5am - 10pm, Weekends 8am - 8pm", updatedHours);
+        Assert.assertEquals("Updated (123) 123-1234", updatedPhone);
+        Assert.assertEquals("Updated New yoga studio in River North", updatedDetails);
+    }
 }
