@@ -43,6 +43,9 @@ public class Gym {
     @Column
     private String details;
 
+    @Column
+    private String image;
+
     // many gyms can belong to one owner
     @ManyToOne
     @JoinColumn(name = "owner_id")
@@ -63,7 +66,7 @@ public class Gym {
     public Gym() {}
 
     // parameterized constructor
-    public Gym(Long id, String name, String category, String addressStreet, String addressCity, String addressState, Long addressZip, String hours, String phone, String details) {
+    public Gym(Long id, String name, String category, String addressStreet, String addressCity, String addressState, Long addressZip, String hours, String phone, String details, String image) {
         this.id = id;
         this.name = name;
         this.category = category;
@@ -74,6 +77,7 @@ public class Gym {
         this.hours = hours;
         this.phone = phone;
         this.details = details;
+        this.image = image;
     }
 
     // getters and setters
@@ -157,6 +161,14 @@ public class Gym {
         this.details = details;
     }
 
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
     // getters and setters for model relationships
     public Owner getOwner() {
         return owner;
@@ -195,6 +207,7 @@ public class Gym {
                 ", hours='" + hours + '\'' +
                 ", phone='" + phone + '\'' +
                 ", details='" + details + '\'' +
+                ", image='" + image + '\'' +
                 '}';
     }
 }

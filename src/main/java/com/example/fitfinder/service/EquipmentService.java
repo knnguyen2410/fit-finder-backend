@@ -105,6 +105,9 @@ public class EquipmentService {
                     if (equipmentObject.getDetails() != null && !equipmentObject.getDetails().isEmpty()){
                         equipment.get().setDetails(equipmentObject.getDetails());
                     }
+                    if (equipmentObject.getImage() != null && !equipmentObject.getImage().isEmpty()){
+                        equipment.get().setImage(equipmentObject.getImage());
+                    }
                     return equipmentRepository.save(equipment.get());
                 } else {
                     throw new NotFoundException("Equipment with id " + equipmentId + " not found");

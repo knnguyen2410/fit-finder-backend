@@ -106,6 +106,9 @@ public class AmenityService {
                     if (amenityObject.getDetails() != null && !amenityObject.getDetails().isEmpty()){
                         amenity.get().setDetails(amenityObject.getDetails());
                     }
+                    if (amenityObject.getImage() != null && !amenityObject.getImage().isEmpty()){
+                        amenity.get().setImage(amenityObject.getImage());
+                    }
                     return amenityRepository.save(amenity.get());
                 } else {
                     throw new NotFoundException("Amenity with id " + amenityId + " not found");

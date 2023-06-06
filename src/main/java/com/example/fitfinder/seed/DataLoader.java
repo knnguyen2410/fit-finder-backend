@@ -53,17 +53,17 @@ public class DataLoader implements CommandLineRunner {
             ownerService.createOwner(ash);
 
             // create gym
-            Gym perfectFit = new Gym(1L, "Perfect Fit", "Commercial Gym", "123 N. Street St.", "Chicago", "IL", 60654L, "Weekdays 5am - 10pm, Weekends 8am - 8pm", "(123) 123-1234", "New commercial gym in River North");
-            Gym perfectBoxing = new Gym(2L, "Perfect Boxing Gym", "Boxing Gym", "456 N. Street St.", "Chicago", "IL", 60654L, "Weekdays 5am - 10pm, Weekends 8am - 8pm", "(123) 123-1234", "New boxing gym in River North");
-            Gym perfectMuayThai = new Gym(3L, "Perfect Muay Thai", "Muay Thai Gym", "789 N. Street St.", "Chicago", "IL", 60654L, "Weekdays 5am - 10pm, Weekends 8am - 8pm", "(123) 123-1234", "New muay thai gym in River North");
+            Gym perfectFit = new Gym(1L, "Perfect Fit", "Commercial Gym", "123 N. Street St.", "Chicago", "IL", 60654L, "Weekdays 5am - 10pm, Weekends 8am - 8pm", "(123) 123-1234", "New commercial gym in River North", "https://i.pinimg.com/originals/7c/c1/e3/7cc1e3d2c4d85454b3bb419f89dee043.jpg");
+            Gym perfectBoxing = new Gym(2L, "Perfect Boxing Gym", "Boxing Gym", "456 N. Street St.", "Chicago", "IL", 60654L, "Weekdays 5am - 10pm, Weekends 8am - 8pm", "(123) 123-1234", "New boxing gym in River North", "https://static.giggster.com/images/location/6f821557-683c-46a3-949b-6523a604e802/082c5c51-25f9-4bd0-9d6a-b8b7419d0ab7/mid_x3.jpeg");
+            Gym perfectMuayThai = new Gym(3L, "Perfect Muay Thai", "Muay Thai Gym", "789 N. Street St.", "Chicago", "IL", 60654L, "Weekdays 5am - 10pm, Weekends 8am - 8pm", "(123) 123-1234", "New muay thai gym in River North", "https://muaythai-world.com/wp-content/uploads/2017/04/Die-besten-Muay-Thai-Camps-in-Thailand.jpg");
 
             // create equipment
-            Equipment weightPlate45 = new Equipment(1L, "Weight", "Trustworthy Brand", "45lb weight plate (single)", 20L, "One (1) 45lb weight plate");
-            Equipment barbell = new Equipment(2L, "Bar", "Trustworthy Brand", "1 inch barbell", 5L, "One (1) 1 inch barbell");
-            Equipment flatBenchPress = new Equipment(3L, "Bench", "Trustworthy Brand", "Flat bench press", 5L, "One (1) flat branch press, non-adjustable");
+            Equipment weightPlate45 = new Equipment(1L, "Weight", "Trustworthy Brand", "45lb weight plate (single)", 20L, "One (1) 45lb weight plate", "https://assets.roguefitness.com/f_auto,q_auto,c_limit,w_1600,b_rgb:f8f8f8/catalog/Weightlifting%20Bars%20and%20Plates/Plates/Bumper%20Plates/IP0125/IP0125-WEB6_t27jkg.png");
+            Equipment barbell = new Equipment(2L, "Bar", "Trustworthy Brand", "1 inch barbell", 5L, "One (1) 1 inch barbell", "https://assets.roguefitness.com/f_auto,q_auto,c_limit,w_1600,b_rgb:f8f8f8/catalog/Weightlifting%20Bars%20and%20Plates/Barbells/Mens%2020KG%20Barbells/RA0586-BLBR/RA0586-BLBR-WEB3_x8ayz1.png");
+            Equipment flatBench = new Equipment(3L, "Bench", "Trustworthy Brand", "Flat bench press", 5L, "One (1) flat branch press, non-adjustable", "https://assets.roguefitness.com/f_auto,q_auto,c_limit,w_1600,b_rgb:f8f8f8/catalog/Strength%20Equipment/Strength%20Training/Weight%20Benches/Flat%20Utility%20Benches/RA1362/RA1362-Textured-Pad-H_r6qelt.png");
 
             // create amenity
-            Amenity basketballCourt = new Amenity(1L, "Recreational facility", "Sports", "Basketball Court", 1L, "New basketball court");
+            Amenity basketballCourt = new Amenity(1L, "Recreational facility", "Sports", "Basketball Court", 1L, "New basketball court", "https://www.lakeshoresf.com/wp-content/uploads/2021/03/Pick-up-Basketball-at-Illinois-Center-768x576.jpeg");
 
             // set owner for gym
             perfectFit.setOwner(kim);
@@ -76,10 +76,10 @@ public class DataLoader implements CommandLineRunner {
             // set gym for equipment
             weightPlate45.setGym(perfectFit);
             barbell.setGym(perfectFit);
-            flatBenchPress.setGym(perfectFit);
+            flatBench.setGym(perfectFit);
             equipmentRepository.save(weightPlate45);
             equipmentRepository.save(barbell);
-            equipmentRepository.save(flatBenchPress);
+            equipmentRepository.save(flatBench);
 
             // set gym for amenity
             basketballCourt.setGym(perfectFit);
@@ -95,7 +95,7 @@ public class DataLoader implements CommandLineRunner {
             ArrayList<Equipment> perfectFitEquipmentList = new ArrayList<>();
             perfectFitEquipmentList.add(weightPlate45);
             perfectFitEquipmentList.add(barbell);
-            perfectFitEquipmentList.add(flatBenchPress);
+            perfectFitEquipmentList.add(flatBench);
             perfectFit.setEquipmentList(perfectFitEquipmentList);
 
             // set amenity list for gym

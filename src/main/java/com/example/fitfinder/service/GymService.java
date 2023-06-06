@@ -93,6 +93,9 @@ public class GymService {
             if (gymObject.getDetails() != null && !gymObject.getDetails().isEmpty()){
                 gym.get().setDetails(gymObject.getDetails());
             }
+            if (gymObject.getImage() != null && !gymObject.getImage().isEmpty()){
+                gym.get().setImage(gymObject.getImage());
+            }
             return gymRepository.save(gym.get());
         } else {
             throw new NotFoundException("Gym with id " + gymId + " not found");
