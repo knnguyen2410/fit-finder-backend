@@ -1,5 +1,7 @@
 package com.example.fitfinder.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
@@ -29,6 +31,7 @@ public class Owner {
     // one owner can have many gyms
     @OneToMany(mappedBy = "owner", orphanRemoval = true) // orphanRemoval removes the gyms from database if we deleted it from an owner
     @LazyCollection(LazyCollectionOption.FALSE) // all gyms will be eagerly loaded (gym data is retrieved together with owner data from the database)
+    @JsonIgnoreProperties("owner") // excludes data from JSON object viewed by client
     private List<Gym> gymList;
 
     // no-args constructor
