@@ -134,6 +134,9 @@ public class OwnerService {
             if (ownerObject.getPassword() != null && !ownerObject.getPassword().isEmpty()){
                 owner.get().setPassword(passwordEncoder.encode(ownerObject.getPassword()));
             }
+            if (ownerObject.getImage() != null && !ownerObject.getImage().isEmpty()){
+                owner.get().setImage(ownerObject.getImage());
+            }
             return ownerRepository.save(owner.get());
         } else {
             throw new NotFoundException("Owner with id " + ownerId + " not found");

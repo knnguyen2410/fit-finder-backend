@@ -28,6 +28,9 @@ public class Owner {
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY) // owners can send password data to server, but it is not sent back for the owner to view in the JSON object
     private String password;
 
+    @Column
+    private String image;
+
     // one owner can have many gyms
     @OneToMany(mappedBy = "owner", orphanRemoval = true) // orphanRemoval removes the gyms from database if we deleted it from an owner
     @LazyCollection(LazyCollectionOption.FALSE) // all gyms will be eagerly loaded (gym data is retrieved together with owner data from the database)
@@ -38,11 +41,12 @@ public class Owner {
     public Owner() {}
 
     // parameterized constructor
-    public Owner(Long id, String name, String email, String password) {
+    public Owner(Long id, String name, String email, String password, String image) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.password = password;
+        this.image = image;
     }
 
     // getters and setters
@@ -78,6 +82,14 @@ public class Owner {
         this.password = password;
     }
 
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
     // getters and setters for model relationships
     public List<Gym> getGymList() {
         return gymList;
@@ -94,6 +106,7 @@ public class Owner {
                 ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
+                ", image='" + image + '\'' +
                 '}';
     }
 }
