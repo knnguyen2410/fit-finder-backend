@@ -55,7 +55,7 @@ public class DataLoader implements CommandLineRunner {
             // create gym
             Gym perfectFit = new Gym(1L, "Perfect Fit", "Commercial Gym", "123 N. Street St.", "Chicago", "IL", 60654L, "Weekdays 5am - 10pm, Weekends 8am - 8pm", "(123) 123-1234", "New commercial gym in River North", "https://i.pinimg.com/originals/7c/c1/e3/7cc1e3d2c4d85454b3bb419f89dee043.jpg");
             Gym perfectBoxing = new Gym(2L, "Perfect Boxing Gym", "Boxing Gym", "456 N. Street St.", "Chicago", "IL", 60654L, "Weekdays 5am - 10pm, Weekends 8am - 8pm", "(123) 123-1234", "New boxing gym in River North", "https://static.giggster.com/images/location/6f821557-683c-46a3-949b-6523a604e802/082c5c51-25f9-4bd0-9d6a-b8b7419d0ab7/mid_x3.jpeg");
-            Gym perfectMuayThai = new Gym(3L, "Perfect Muay Thai", "Muay Thai Gym", "789 N. Street St.", "Chicago", "IL", 60654L, "Weekdays 5am - 10pm, Weekends 8am - 8pm", "(123) 123-1234", "New muay thai gym in River North", "https://muaythai-world.com/wp-content/uploads/2017/04/Die-besten-Muay-Thai-Camps-in-Thailand.jpg");
+            Gym perfectMuayThai = new Gym(3L, "Perfect Muay Thai", "Muay Thai Gym", "789 N. Street St.", "Chicago", "IL", 60654L, "Weekdays 5am - 10pm, Weekends 8am - 8pm", "(123) 123-1234", "New Muay Thai gym in River North", "https://static.bangkokpost.com/media/content/dcx/2020/02/23/3537279.jpg");
 
             // create equipment
             Equipment weightPlate45 = new Equipment(1L, "Weight", "Trustworthy Brand", "45lb weight plate (single)", 20L, "One (1) 45lb weight plate", "https://assets.roguefitness.com/f_auto,q_auto,c_limit,w_1600,b_rgb:f8f8f8/catalog/Weightlifting%20Bars%20and%20Plates/Plates/Bumper%20Plates/IP0125/IP0125-WEB6_t27jkg.png");
