@@ -48,6 +48,15 @@ public class AmenityService {
         this.ownerService = ownerService;
     }
 
+    public List<Amenity> getAllAmenities(){
+        List<Amenity> allAmenities = amenityRepository.findAll();
+        if (allAmenities.size() == 0){
+            throw new NotFoundException("No amenities found");
+        } else {
+            return allAmenities;
+        }
+    }
+
     public List<Amenity> getAllAmenitiesByGymId(Long gymId){
         Optional<Gym> gym = gymRepository.findById(gymId);
         if (gym.isPresent()){

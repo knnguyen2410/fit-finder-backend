@@ -47,6 +47,15 @@ public class EquipmentService {
         this.ownerService = ownerService;
     }
 
+    public List<Equipment> getAllEquipment(){
+        List<Equipment> allEquipment = equipmentRepository.findAll();
+        if (allEquipment.size() == 0){
+            throw new NotFoundException("No equipment found");
+        } else {
+            return allEquipment;
+        }
+    }
+
     public List<Equipment> getAllEquipmentByGymId(Long gymId){
         Optional<Gym> gym = gymRepository.findById(gymId);
         if (gym.isPresent()){

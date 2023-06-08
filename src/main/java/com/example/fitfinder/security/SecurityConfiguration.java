@@ -72,8 +72,10 @@ public class SecurityConfiguration {
                         "/api/gyms",
                         "/api/gyms/{gymId}",
                         "/api/gyms/{gymId}/equipment",
-                        "/api/gyms/{gymId}/amenities"
-                ).permitAll()// these are all public urls
+                        "/api/gyms/{gymId}/amenities",
+                        "/api/equipment",
+                        "/api/amenities"
+                        ).permitAll()// these are all public urls
                 .anyRequest().authenticated() // other urls need authentication
                 .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS) // when you log into a server, you need to maintain a session. add this session so that our java springboot knows we're logged in
                 .and().csrf().disable(); // connects front/back end if they're on different servers
