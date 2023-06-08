@@ -66,6 +66,7 @@ public class SecurityConfiguration {
                         "/api/owners/login").permitAll()
                 .antMatchers(HttpMethod.GET,
                         "/api/owners",
+                        "/api/owners/current",
                         "/api/owners/{ownerId}",
                         "/api/owners/{ownerId}/gyms",
                         "/api/gyms",
