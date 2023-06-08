@@ -109,6 +109,15 @@ public class OwnerService {
         }
     }
 
+    public List<Owner> getAllOwners(){
+        List<Owner> allOwners = ownerRepository.findAll();
+        if (allOwners.size() == 0){
+            throw new NotFoundException("No gym owners found");
+        } else {
+            return allOwners;
+        }
+    }
+
     public Owner findOwnerByEmail(String email){
         return ownerRepository.findOwnerByEmail(email);
     }

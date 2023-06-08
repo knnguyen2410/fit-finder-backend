@@ -45,9 +45,9 @@ public class DataLoader implements CommandLineRunner {
             amenityRepository.count() == 0){
 
             // create owner
-            Owner kim = new Owner(1L, "Kim Possible", "kim@gmail.com", "p", "https://i.kym-cdn.com/entries/icons/original/000/017/769/Screenshot_66.png");
-            Owner sam = new Owner(2L, "Sam Manson", "sam@gmail.com", "p", "https://pm1.aminoapps.com/6603/5f42d68c4652bb52a8a71653769fe86b0d424972_00.jpg");
-            Owner ash = new Owner(3L, "Ash Ketchum", "ash@gmail.com", "p", "https://www.themarysue.com/wp-content/uploads/2022/06/pokemon-25.jpg?resize=1200%2C671?w=1200");
+            Owner kim = new Owner(1L, "Kim Possible", "kim@gmail.com", "p", "https://media.istockphoto.com/id/856797530/photo/portrait-of-a-beautiful-woman-at-the-gym.jpg?s=612x612&w=0&k=20&c=0wMa1MYxt6HHamjd66d5__XGAKbJFDFQyu9LCloRsYU=");
+            Owner sam = new Owner(2L, "Sam Manson", "sam@gmail.com", "p", "https://www.thimble.com/wp-content/uploads/2022/05/Personal-Trainer-Salary-Guide.jpg");
+            Owner ash = new Owner(3L, "Ash Ketchum", "ash@gmail.com", "p", "https://hips.hearstapps.com/hmg-prod/images/mh-trainer-2-1533576998.png");
             ownerService.createOwner(kim);
             ownerService.createOwner(sam);
             ownerService.createOwner(ash);
