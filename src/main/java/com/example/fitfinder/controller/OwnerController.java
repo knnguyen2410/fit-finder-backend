@@ -40,11 +40,6 @@ public class OwnerController {
         return ownerService.getAllOwners();
     }
 
-    @GetMapping(path = "/current")
-    public Owner getLoggedInOwner(){
-        return ownerService.getLoggedInOwner();
-    }
-
     // Functionality: Returns owner account details
     // Path: http://localhost:8080/api/owners/{ownerId}
     @GetMapping(path = "/{ownerId}")
