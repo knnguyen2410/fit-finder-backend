@@ -6,7 +6,9 @@ import com.example.fitfinder.exceptions.NotFoundException;
 import com.example.fitfinder.models.Gym;
 import com.example.fitfinder.models.Owner;
 import com.example.fitfinder.repository.GymRepository;
+import com.example.fitfinder.repository.OwnerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.AutoConfigureOrder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -103,7 +105,7 @@ public class GymService {
     }
 
     public Gym deleteGymById(Long gymId){
-        Optional<Gym> gym = gymRepository.findById(gymId);
+        Optional<Gym> gym = gymRepository.findGymByIdAndOwnerId(gymId, OwnerService.getLoggedInOwner().getId());
         if (gym.isPresent()){
             gymRepository.delete(gym.get());
             return gym.get();

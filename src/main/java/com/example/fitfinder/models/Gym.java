@@ -1,6 +1,7 @@
 package com.example.fitfinder.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
@@ -54,11 +55,13 @@ public class Gym {
     // one gym can have many pieces of equipment
     @OneToMany(mappedBy = "gym", orphanRemoval = true) // orphanRemoval removes the equipment from database if we deleted it from a gym
     @LazyCollection(LazyCollectionOption.FALSE) // all equipment data will be eagerly loaded (equipment data is retrieved together with gym data from the database)
+    @JsonIgnoreProperties("gym") // excludes data from JSON object viewed by client
     private List<Equipment> equipmentList;
 
     // one gym can have many amenities
     @OneToMany(mappedBy = "gym", orphanRemoval = true) // orphanRemoval removes the amenity from database if we deleted it from a gym
     @LazyCollection(LazyCollectionOption.FALSE) // all amenity data will be eagerly loaded (amenity data is retrieved together with gym data from the database)
+    @JsonIgnoreProperties("gym") // excludes data from JSON object viewed by client
     private List<Amenity> amenityList;
 
     // no-args constructor

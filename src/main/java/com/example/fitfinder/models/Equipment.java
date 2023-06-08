@@ -34,7 +34,7 @@ public class Equipment {
     // many pieces of equipment can belong to one gym
     @ManyToOne
     @JoinColumn(name = "gym_id")
-    @JsonIgnore // excludes data from JSON object viewed by client
+//    @JsonIgnore // excludes data from JSON object viewed by client
     private Gym gym;
 
     // no-args constructor

@@ -53,7 +53,7 @@ public class OwnerService {
     }
 
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
-    public Owner getLoggedInOwner() {
+    public static Owner getLoggedInOwner() {
         MyOwnerDetails ownerDetails = (MyOwnerDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         // Check that there is a logged-in user
         if (ownerDetails.getOwner() == null || ownerDetails.getUsername().isEmpty() || ownerDetails.getUsername() == null) {
