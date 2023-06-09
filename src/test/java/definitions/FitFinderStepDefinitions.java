@@ -400,7 +400,7 @@ public class FitFinderStepDefinitions {
         request.header("Content-Type", "application/json");
         request.header("Authorization", "Bearer " + getSecurityKeyAsh());
 
-        response = request.body(requestBody.toString()).put(BASE_URL + port + "/api/gyms/3/equipment/4");
+        response = request.body(requestBody.toString()).put(BASE_URL + port + "/api/gyms/3/equipment/10");
         Assert.assertEquals(200, response.getStatusCode());
     }
 
@@ -426,7 +426,7 @@ public class FitFinderStepDefinitions {
         request.header("Content-Type", "application/json");
         request.header("Authorization", "Bearer " + getSecurityKeyAsh());
 
-        response = request.delete(BASE_URL + port + "/api/gyms/3/equipment/4");
+        response = request.delete(BASE_URL + port + "/api/gyms/3/equipment/10");
     }
 
     @Then("I see the equipment is deleted")
@@ -472,7 +472,7 @@ public class FitFinderStepDefinitions {
         request.header("Content-Type", "application/json");
         request.header("Authorization", "Bearer " + getSecurityKeyAsh());
 
-        response = request.body(requestBody.toString()).put(BASE_URL + port + "/api/gyms/3/amenities/2");
+        response = request.body(requestBody.toString()).put(BASE_URL + port + "/api/gyms/3/amenities/10");
         Assert.assertEquals(200, response.getStatusCode());
     }
 
@@ -498,7 +498,7 @@ public class FitFinderStepDefinitions {
         request.header("Content-Type", "application/json");
         request.header("Authorization", "Bearer " + getSecurityKeyAsh());
 
-        response = request.delete(BASE_URL + port + "/api/gyms/3/amenities/2");
+        response = request.delete(BASE_URL + port + "/api/gyms/3/amenities/10");
     }
 
     @Then("I see the amenity is deleted")
