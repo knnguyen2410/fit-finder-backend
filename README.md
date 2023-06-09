@@ -206,6 +206,7 @@ This Java REST API contains the following features:
 * API endpoints can perform full CRUD tasks based on the business use-case.
 * Individually tested endpoints.
 * CRUD routes were built based on rest conventions to be exposed as part of the API.
+* Security and authentication layer for private endpoints.
 * Gracefully handles exceptions when they occur.
 * In the event that an exception occurs, sends appropriate error messages back to the user.
 * Conforms to the MVC design pattern, having separate models, controllers, and services.
