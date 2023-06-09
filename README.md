@@ -194,6 +194,7 @@ To maintain a high level of confidence in the API's functionality, a Behavior-Dr
 
 By following this well-structured development process, Fit Finder API was built with careful consideration of user needs, proper planning of models and relationships, and thorough testing using BDD. This approach not only facilitated the creation of a robust API but also ensured that it met the expectations of both gym goers and gym owners.
 
+![kanban.png](assets%2Fkanban.png)
 [Github Projects](https://github.com/users/knnguyen2410/projects/3/views/3) was used for planning documentation, breaking down this project into deliverables and timelines, and scheduling.
 
 ## Features
