@@ -4,7 +4,6 @@ import com.example.fitfinder.exceptions.AlreadyExistsException;
 import com.example.fitfinder.exceptions.BadRequestException;
 import com.example.fitfinder.exceptions.NotFoundException;
 import com.example.fitfinder.models.Amenity;
-import com.example.fitfinder.models.Equipment;
 import com.example.fitfinder.models.Gym;
 import com.example.fitfinder.models.Owner;
 import com.example.fitfinder.repository.AmenityRepository;
@@ -48,6 +47,12 @@ public class AmenityService {
         this.ownerService = ownerService;
     }
 
+    /**
+     * Retrieves a list of all amenities.
+     *
+     * @return A list of all amenities.
+     * @throws NotFoundException If no amenities are found.
+     */
     public List<Amenity> getAllAmenities(){
         List<Amenity> allAmenities = amenityRepository.findAll();
         if (allAmenities.size() == 0){
@@ -57,6 +62,13 @@ public class AmenityService {
         }
     }
 
+    /**
+     * Retrieves a list of amenities associated with a specific gym.
+     *
+     * @param gymId The ID of the gym.
+     * @return A list of amenities associated with the specified gym.
+     * @throws NotFoundException If no amenities are found for the specified gym.
+     */
     public List<Amenity> getAllAmenitiesByGymId(Long gymId){
         Optional<Gym> gym = gymRepository.findById(gymId);
         if (gym.isPresent()){
@@ -71,6 +83,16 @@ public class AmenityService {
         }
     }
 
+    /**
+     * Creates a new amenity associated with a specific gym.
+     *
+     * @param gymId The ID of the gym.
+     * @param amenityObject The amenity object to create.
+     * @return The created amenity.
+     * @throws BadRequestException If the amenity name is empty or null.
+     * @throws AlreadyExistsException If an amenity with the same name already exists.
+     * @throws NotFoundException If the gym or owner is not found.
+     */
     public Amenity createAmenityByGymId(Long gymId, Amenity amenityObject) {
         Optional<Owner> owner = ownerRepository.findById(ownerService.getLoggedInOwner().getId());
         if (owner.isPresent()){
@@ -93,6 +115,15 @@ public class AmenityService {
         }
     }
 
+    /**
+     * Updates an existing amenity associated with a specific gym.
+     *
+     * @param gymId The ID of the gym.
+     * @param amenityId The ID of the amenity to update.
+     * @param amenityObject The updated amenity object.
+     * @return The updated amenity.
+     * @throws NotFoundException If the gym, owner, or amenity is not found.
+     */
     public Amenity updateAmenityByGymId(Long gymId, Long amenityId, Amenity amenityObject){
         Optional<Owner> owner = ownerRepository.findById(ownerService.getLoggedInOwner().getId());
         if (owner.isPresent()){
@@ -130,6 +161,14 @@ public class AmenityService {
         }
     }
 
+    /**
+     * Deletes an existing amenity associated with a specific gym.
+     *
+     * @param gymId The ID of the gym.
+     * @param amenityId The ID of the amenity to delete.
+     * @return The deleted amenity.
+     * @throws NotFoundException If the gym, owner, or amenity is not found.
+     */
     public Amenity deleteAmenityByGymId(Long gymId, Long amenityId) {
         Optional<Owner> owner = ownerRepository.findById(ownerService.getLoggedInOwner().getId());
         if (owner.isPresent()) {
@@ -149,5 +188,4 @@ public class AmenityService {
             throw new NotFoundException("Owner with id " + owner.get().getId() + " not found");
         }
     }
-
 }

@@ -1,7 +1,5 @@
 package com.example.fitfinder.models;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import javax.persistence.*;
 
 @Entity
@@ -34,7 +32,6 @@ public class Amenity {
     // many amenities can belong to one gym
     @ManyToOne
     @JoinColumn(name = "gym_id")
-//    @JsonIgnore // excludes data from JSON object viewed by client
     private Gym gym;
 
     // no-args constructor

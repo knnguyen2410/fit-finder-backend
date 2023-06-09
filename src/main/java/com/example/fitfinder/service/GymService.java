@@ -4,11 +4,8 @@ import com.example.fitfinder.exceptions.AlreadyExistsException;
 import com.example.fitfinder.exceptions.BadRequestException;
 import com.example.fitfinder.exceptions.NotFoundException;
 import com.example.fitfinder.models.Gym;
-import com.example.fitfinder.models.Owner;
 import com.example.fitfinder.repository.GymRepository;
-import com.example.fitfinder.repository.OwnerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.AutoConfigureOrder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -32,6 +29,14 @@ public class GymService {
         this.ownerService = ownerService;
     }
 
+    /**
+     * Creates a new gym.
+     *
+     * @param gymObject The gym object to create.
+     * @return The created gym.
+     * @throws AlreadyExistsException If a gym with the same name and address already exists.
+     * @throws BadRequestException   If the gym name or street address is empty or null.
+     */
     public Gym createGym(Gym gymObject){
         if (gymRepository.existsByName(gymObject.getName()) && gymRepository.existsByAddressStreet(gymObject.getAddressStreet())){
             throw new AlreadyExistsException("Gym with the name " + gymObject.getName() + " and street address " + gymObject.getAddressStreet() + " already exists");
@@ -47,6 +52,12 @@ public class GymService {
         }
     }
 
+    /**
+     * Retrieves a list of all gyms.
+     *
+     * @return A list of all gyms.
+     * @throws NotFoundException If no gyms are found.
+     */
     public List<Gym> getAllGyms(){
         List<Gym> allGyms = gymRepository.findAll();
         if (allGyms.size() == 0){
@@ -56,6 +67,13 @@ public class GymService {
         }
     }
 
+    /**
+     * Retrieves a gym by its ID.
+     *
+     * @param gymId The ID of the gym.
+     * @return The gym with the specified ID.
+     * @throws NotFoundException If the gym with the specified ID is not found.
+     */
     public Gym getGymById(Long gymId){
         Optional<Gym> gym = gymRepository.findById(gymId);
         if (gym.isPresent()){
@@ -65,6 +83,14 @@ public class GymService {
         }
     }
 
+    /**
+     * Updates an existing gym by its ID.
+     *
+     * @param gymId      The ID of the gym to update.
+     * @param gymObject  The updated gym object.
+     * @return The updated gym.
+     * @throws NotFoundException If the gym with the specified ID is not found.
+     */
     public Gym updateGymById(Long gymId, Gym gymObject){
         Optional<Gym> gym = gymRepository.findGymByIdAndOwnerId(gymId, OwnerService.getLoggedInOwner().getId());
         if (gym.isPresent()){
@@ -104,6 +130,13 @@ public class GymService {
         }
     }
 
+    /**
+     * Deletes an existing gym by its ID.
+     *
+     * @param gymId The ID of the gym to delete.
+     * @return The deleted gym.
+     * @throws NotFoundException If the gym with the specified ID is not found.
+     */
     public Gym deleteGymById(Long gymId){
         Optional<Gym> gym = gymRepository.findGymByIdAndOwnerId(gymId, OwnerService.getLoggedInOwner().getId());
         if (gym.isPresent()){

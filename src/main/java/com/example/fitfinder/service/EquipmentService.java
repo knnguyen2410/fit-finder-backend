@@ -47,6 +47,12 @@ public class EquipmentService {
         this.ownerService = ownerService;
     }
 
+    /**
+     * Retrieves a list of all equipment.
+     *
+     * @return A list of all equipment.
+     * @throws NotFoundException If no equipment is found.
+     */
     public List<Equipment> getAllEquipment(){
         List<Equipment> allEquipment = equipmentRepository.findAll();
         if (allEquipment.size() == 0){
@@ -56,6 +62,13 @@ public class EquipmentService {
         }
     }
 
+    /**
+     * Retrieves a list of equipment associated with a specific gym.
+     *
+     * @param gymId The ID of the gym.
+     * @return A list of equipment associated with the specified gym.
+     * @throws NotFoundException If no equipment is found for the specified gym.
+     */
     public List<Equipment> getAllEquipmentByGymId(Long gymId){
         Optional<Gym> gym = gymRepository.findById(gymId);
         if (gym.isPresent()){
@@ -70,6 +83,16 @@ public class EquipmentService {
         }
     }
 
+    /**
+     * Creates new equipment associated with a specific gym.
+     *
+     * @param gymId The ID of the gym.
+     * @param equipmentObject The equipment object to create.
+     * @return The created equipment.
+     * @throws BadRequestException If the equipment name is empty or null.
+     * @throws AlreadyExistsException If equipment with the same name and brand already exists.
+     * @throws NotFoundException If the gym or owner is not found.
+     */
     public Equipment createEquipmentByGymId(Long gymId, Equipment equipmentObject) {
         Optional<Owner> owner = ownerRepository.findById(ownerService.getLoggedInOwner().getId());
         if (owner.isPresent()){
@@ -92,6 +115,15 @@ public class EquipmentService {
         }
     }
 
+    /**
+     * Updates existing equipment associated with a specific gym.
+     *
+     * @param gymId The ID of the gym.
+     * @param equipmentId The ID of the equipment to update.
+     * @param equipmentObject The updated equipment object.
+     * @return The updated equipment.
+     * @throws NotFoundException If the gym, owner, or equipment is not found.
+     */
     public Equipment updateEquipmentByGymId(Long gymId, Long equipmentId, Equipment equipmentObject){
         Optional<Owner> owner = ownerRepository.findById(ownerService.getLoggedInOwner().getId());
         if (owner.isPresent()){
@@ -129,6 +161,14 @@ public class EquipmentService {
         }
     }
 
+    /**
+     * Deletes existing equipment associated with a specific gym.
+     *
+     * @param gymId The ID of the gym.
+     * @param equipmentId The ID of the equipment to delete.
+     * @return The deleted equipment.
+     * @throws NotFoundException If the gym, owner, or equipment is not found.
+     */
     public Equipment deleteEquipmentByGymId(Long gymId, Long equipmentId) {
         Optional<Owner> owner = ownerRepository.findById(ownerService.getLoggedInOwner().getId());
         if (owner.isPresent()) {

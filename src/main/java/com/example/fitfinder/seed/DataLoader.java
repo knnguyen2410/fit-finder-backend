@@ -38,6 +38,10 @@ public class DataLoader implements CommandLineRunner {
         loadUserData();
     }
 
+    /**
+     * The DataLoader class is responsible for seeding the database with initial data.
+     * It loads user, gym, equipment, and amenity data into their respective repositories.
+     */
     private void loadUserData(){
         if (ownerRepository.count() == 0 &&
             gymRepository.count() == 0 &&

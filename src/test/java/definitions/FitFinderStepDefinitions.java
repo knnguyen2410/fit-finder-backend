@@ -42,6 +42,12 @@ public class FitFinderStepDefinitions {
     @Autowired
     private OwnerRepository ownerRepository;
 
+    /**
+     * Helper method to get the security key for the user "kim".
+     *
+     * @return The security key for user "kim".
+     * @throws JSONException If there is an error in JSON processing.
+     */
     public String getSecurityKeyKim() throws JSONException {
         RestAssured.baseURI = BASE_URL;
         request = RestAssured.given();
@@ -55,6 +61,12 @@ public class FitFinderStepDefinitions {
         return response.jsonPath().getString("message");
     }
 
+    /**
+     * Helper method to get the security key for the user "sam".
+     *
+     * @return The security key for user "sam".
+     * @throws JSONException If there is an error in JSON processing.
+     */
     public String getSecurityKeySam() throws JSONException {
         RestAssured.baseURI = BASE_URL;
         request = RestAssured.given();
@@ -68,6 +80,12 @@ public class FitFinderStepDefinitions {
         return response.jsonPath().getString("message");
     }
 
+    /**
+     * Helper method to get the security key for the user "ash".
+     *
+     * @return The security key for user "ash".
+     * @throws JSONException If there is an error in JSON processing.
+     */
     public String getSecurityKeyAsh() throws JSONException {
         RestAssured.baseURI = BASE_URL;
         request = RestAssured.given();

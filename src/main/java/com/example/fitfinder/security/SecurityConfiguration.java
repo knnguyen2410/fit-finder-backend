@@ -128,6 +128,11 @@ public class SecurityConfiguration {
 
     }
 
+    /**
+     * Configures web security to ignore the "/h2-console/**" path.
+     *
+     * @return the WebSecurityCustomizer instance
+     */
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
         return (web) -> web.ignoring().antMatchers("/h2-console/**");

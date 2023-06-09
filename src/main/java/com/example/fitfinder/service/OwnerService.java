@@ -12,7 +12,6 @@ import com.example.fitfinder.repository.GymRepository;
 import com.example.fitfinder.repository.OwnerRepository;
 import com.example.fitfinder.security.JWTUtils;
 import com.example.fitfinder.security.MyOwnerDetails;
-import com.example.fitfinder.security.MyOwnerDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.http.HttpStatus;
@@ -52,6 +51,12 @@ public class OwnerService {
         this.myOwnerDetails = myOwnerDetails;
     }
 
+    /**
+     * Retrieves the currently logged-in owner.
+     *
+     * @return The logged-in owner.
+     * @throws UnauthorizedException If the owner is not logged in.
+     */
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
     public static Owner getLoggedInOwner() {
         MyOwnerDetails ownerDetails = (MyOwnerDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -64,6 +69,14 @@ public class OwnerService {
         return ownerDetails.getOwner();
     }
 
+    /**
+     * Creates a new owner.
+     *
+     * @param ownerObject The owner object to create.
+     * @return The created owner.
+     * @throws BadRequestException    If the name, email, or password fields are empty or null.
+     * @throws AlreadyExistsException If an owner with the same email already exists.
+     */
     public Owner createOwner(Owner ownerObject){
         // Check that the name field is not empty when updating the name
         if (Objects.equals(ownerObject.getName(), "") || ownerObject.getName() == null) {
@@ -89,6 +102,12 @@ public class OwnerService {
         }
     }
 
+    /**
+     * Logs in an owner with the provided email and password.
+     *
+     * @param loginRequest The login request containing the owner's email and password.
+     * @return The login response containing the JWT token.
+     */
     public ResponseEntity<?> loginOwner(LoginRequest loginRequest) {
         try {
             // Authenticates the owner by checking the email and password provided
@@ -107,6 +126,12 @@ public class OwnerService {
         }
     }
 
+    /**
+     * Retrieves a list of all owners.
+     *
+     * @return A list of all owners.
+     * @throws NotFoundException If no owners are found.
+     */
     public List<Owner> getAllOwners(){
         List<Owner> allOwners = ownerRepository.findAll();
         if (allOwners.size() == 0){
@@ -116,10 +141,23 @@ public class OwnerService {
         }
     }
 
+    /**
+     * Finds an owner by email.
+     *
+     * @param email The email of the owner to find.
+     * @return The owner with the specified email.
+     */
     public Owner findOwnerByEmail(String email){
         return ownerRepository.findOwnerByEmail(email);
     }
 
+    /**
+     * Retrieves an owner by ID.
+     *
+     * @param ownerId The ID of the owner.
+     * @return The owner with the specified ID.
+     * @throws NotFoundException If the owner with the specified ID is not found.
+     */
     public Optional<Owner> getOwnerById(Long ownerId){
         Optional<Owner> owner = ownerRepository.findById(ownerId);
         if (owner.isPresent()){
@@ -129,6 +167,14 @@ public class OwnerService {
         }
     }
 
+    /**
+     * Updates an existing owner by ID.
+     *
+     * @param ownerId     The ID of the owner to update.
+     * @param ownerObject The updated owner object.
+     * @return The updated owner.
+     * @throws NotFoundException If the owner with the specified ID is not found.
+     */
     public Owner updateOwnerById(Long ownerId, Owner ownerObject){
         Optional<Owner> owner = ownerRepository.findById(getLoggedInOwner().getId());
         if (owner.isPresent()){
@@ -150,6 +196,13 @@ public class OwnerService {
         }
     }
 
+    /**
+     * Deletes an existing owner by ID.
+     *
+     * @param ownerId The ID of the owner to delete.
+     * @return The deleted owner.
+     * @throws NotFoundException If the owner with the specified ID is not found.
+     */
     public Owner deleteOwnerById(Long ownerId){
         Optional<Owner> owner = ownerRepository.findById(getLoggedInOwner().getId());
         if (owner.isPresent()){
@@ -160,6 +213,13 @@ public class OwnerService {
         }
     }
 
+    /**
+     * Retrieves a list of all gyms owned by the owner with the specified ID.
+     *
+     * @param ownerId The ID of the owner.
+     * @return A list of all gyms owned by the owner.
+     * @throws NotFoundException If the owner with the specified ID is not found or no gyms are found.
+     */
     public List<Gym> getAllGymsByOwnerId(Long ownerId){
         Optional<Owner> owner = ownerRepository.findById(ownerId);
         if (owner.isPresent()){
