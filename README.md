@@ -184,11 +184,11 @@ Cross-Origin Resource Sharing (CORS) is used to communicate between this Spring 
 
 # Development Process
 
-In developing the Fit Finder API, a thoughtful approach was taken to ensure a well-structured and functional application. The API caters to two distinct user groups: gym goers, who can access public data, and gym owners, who require authentication to access private data.
+The Fit Finder API was developed before the Fit Finder Angular frontend application. In developing the Fit Finder API, a thoughtful approach was taken to ensure a well-structured and functional application. The API caters to two distinct user groups: gym goers, who can access public data, and gym owners, who require authentication to access private data.
 
 The development process began by considering the user stories for both user groups. Understanding the needs and requirements of each group was crucial in designing a comprehensive API. Once the user stories were defined, the focus shifted to conceptualizing the models that form the foundation of the API. Models such as owners, gym, equipment, and amenity were identified, along with their respective properties. To establish the relationships between these models, an Entity Relationship Diagram (ERD) was constructed.
 
-With a clear understanding of the user stories and a well-defined ERD, the next step involved designing the API endpoints. Each endpoint was crafted to fulfill a specific user story and provide the necessary functionality. This meticulous planning ensured that all aspects of the API were covered.
+With a clear understanding of the user stories and a well-defined ERD, the next step involved designing the API endpoints. Each endpoint was crafted to fulfill a specific user story and provide the necessary functionality. Public endpoints were created and tested first. Then the security layer was implemented, and the private endpoints were created and tested. This meticulous planning ensured that all aspects of the API were covered.
 
 To maintain a high level of confidence in the API's functionality, a Behavior-Driven Development (BDD) approach was adopted using Cucumber with Rest Assured. This approach allowed for the creation of scenarios that represented various use cases. Step definitions were then implemented to handle each step in the scenarios. Accompanying the step definitions, services and controllers were developed to fulfill the requirements outlined in the tests. This systematic approach ensured that each endpoint was thoroughly tested individually, guaranteeing that they functioned as intended.
 
