@@ -97,7 +97,7 @@ public class EquipmentService {
         if (owner.isPresent()){
             Optional<Gym> gym = gymRepository.findGymByIdAndOwnerId(gymId, owner.get().getId());
             if (gym.isPresent()) {
-                Optional<Equipment> equipment = equipmentRepository.findById(equipmentId);
+                Optional<Equipment> equipment = equipmentRepository.findEquipmentByIdAndGymId(equipmentId, gymId);
                 if (equipment.isPresent()){
                     if (equipmentObject.getCategory() != null && !equipmentObject.getCategory().isEmpty()){
                         equipment.get().setCategory(equipmentObject.getCategory());
