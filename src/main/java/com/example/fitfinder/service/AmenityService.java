@@ -48,6 +48,15 @@ public class AmenityService {
         this.ownerService = ownerService;
     }
 
+    public List<Amenity> getAllAmenities(){
+        List<Amenity> allAmenities = amenityRepository.findAll();
+        if (allAmenities.size() == 0){
+            throw new NotFoundException("No amenities found");
+        } else {
+            return allAmenities;
+        }
+    }
+
     public List<Amenity> getAllAmenitiesByGymId(Long gymId){
         Optional<Gym> gym = gymRepository.findById(gymId);
         if (gym.isPresent()){
@@ -89,7 +98,7 @@ public class AmenityService {
         if (owner.isPresent()){
             Optional<Gym> gym = gymRepository.findGymByIdAndOwnerId(gymId, owner.get().getId());
             if (gym.isPresent()) {
-                Optional<Amenity> amenity = amenityRepository.findById(amenityId);
+                Optional<Amenity> amenity = amenityRepository.findAmenityByIdAndGymId(amenityId, gymId);
                 if (amenity.isPresent()){
                     if (amenityObject.getCategory() != null && !amenityObject.getCategory().isEmpty()){
                         amenity.get().setCategory(amenityObject.getCategory());
@@ -105,6 +114,9 @@ public class AmenityService {
                     }
                     if (amenityObject.getDetails() != null && !amenityObject.getDetails().isEmpty()){
                         amenity.get().setDetails(amenityObject.getDetails());
+                    }
+                    if (amenityObject.getImage() != null && !amenityObject.getImage().isEmpty()){
+                        amenity.get().setImage(amenityObject.getImage());
                     }
                     return amenityRepository.save(amenity.get());
                 } else {
@@ -123,7 +135,7 @@ public class AmenityService {
         if (owner.isPresent()) {
             Optional<Gym> gym = gymRepository.findGymByIdAndOwnerId(gymId, owner.get().getId());
             if (gym.isPresent()) {
-                Optional<Amenity> amenity = amenityRepository.findById(amenityId);
+                Optional<Amenity> amenity = amenityRepository.findAmenityByIdAndGymId(amenityId, gymId);
                 if (amenity.isPresent()) {
                     amenityRepository.delete(amenity.get());
                     return amenity.get();

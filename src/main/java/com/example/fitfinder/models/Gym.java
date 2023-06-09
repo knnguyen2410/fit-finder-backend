@@ -1,6 +1,7 @@
 package com.example.fitfinder.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
@@ -43,27 +44,31 @@ public class Gym {
     @Column
     private String details;
 
+    @Column
+    private String image;
+
     // many gyms can belong to one owner
     @ManyToOne
     @JoinColumn(name = "owner_id")
-    @JsonIgnore // excludes data from JSON object viewed by client
     private Owner owner;
 
     // one gym can have many pieces of equipment
     @OneToMany(mappedBy = "gym", orphanRemoval = true) // orphanRemoval removes the equipment from database if we deleted it from a gym
     @LazyCollection(LazyCollectionOption.FALSE) // all equipment data will be eagerly loaded (equipment data is retrieved together with gym data from the database)
+    @JsonIgnoreProperties("gym") // excludes data from JSON object viewed by client
     private List<Equipment> equipmentList;
 
     // one gym can have many amenities
     @OneToMany(mappedBy = "gym", orphanRemoval = true) // orphanRemoval removes the amenity from database if we deleted it from a gym
     @LazyCollection(LazyCollectionOption.FALSE) // all amenity data will be eagerly loaded (amenity data is retrieved together with gym data from the database)
+    @JsonIgnoreProperties("gym") // excludes data from JSON object viewed by client
     private List<Amenity> amenityList;
 
     // no-args constructor
     public Gym() {}
 
     // parameterized constructor
-    public Gym(Long id, String name, String category, String addressStreet, String addressCity, String addressState, Long addressZip, String hours, String phone, String details) {
+    public Gym(Long id, String name, String category, String addressStreet, String addressCity, String addressState, Long addressZip, String hours, String phone, String details, String image) {
         this.id = id;
         this.name = name;
         this.category = category;
@@ -74,6 +79,7 @@ public class Gym {
         this.hours = hours;
         this.phone = phone;
         this.details = details;
+        this.image = image;
     }
 
     // getters and setters
@@ -157,6 +163,14 @@ public class Gym {
         this.details = details;
     }
 
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
     // getters and setters for model relationships
     public Owner getOwner() {
         return owner;
@@ -195,6 +209,7 @@ public class Gym {
                 ", hours='" + hours + '\'' +
                 ", phone='" + phone + '\'' +
                 ", details='" + details + '\'' +
+                ", image='" + image + '\'' +
                 '}';
     }
 }

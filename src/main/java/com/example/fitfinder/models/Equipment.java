@@ -28,23 +28,27 @@ public class Equipment {
     @Column
     private String details;
 
+    @Column
+    private String image;
+
     // many pieces of equipment can belong to one gym
     @ManyToOne
     @JoinColumn(name = "gym_id")
-    @JsonIgnore // excludes data from JSON object viewed by client
+//    @JsonIgnore // excludes data from JSON object viewed by client
     private Gym gym;
 
     // no-args constructor
     public Equipment() {}
 
     // parameterized constructor
-    public Equipment(Long id, String category, String brand, String name, Long quantity, String details) {
+    public Equipment(Long id, String category, String brand, String name, Long quantity, String details, String image) {
         this.id = id;
         this.category = category;
         this.brand = brand;
         this.name = name;
         this.quantity = quantity;
         this.details = details;
+        this.image = image;
     }
 
     // getters and setters
@@ -96,6 +100,14 @@ public class Equipment {
         this.details = details;
     }
 
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
     // getters and setters for model relationships
     public Gym getGym() {
         return gym;
@@ -114,6 +126,7 @@ public class Equipment {
                 ", name='" + name + '\'' +
                 ", quantity=" + quantity +
                 ", details='" + details + '\'' +
+                ", image='" + image + '\'' +
                 '}';
     }
 }

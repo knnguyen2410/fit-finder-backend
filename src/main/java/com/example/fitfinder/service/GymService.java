@@ -6,7 +6,9 @@ import com.example.fitfinder.exceptions.NotFoundException;
 import com.example.fitfinder.models.Gym;
 import com.example.fitfinder.models.Owner;
 import com.example.fitfinder.repository.GymRepository;
+import com.example.fitfinder.repository.OwnerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.AutoConfigureOrder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -64,7 +66,7 @@ public class GymService {
     }
 
     public Gym updateGymById(Long gymId, Gym gymObject){
-        Optional<Gym> gym = gymRepository.findById(gymId);
+        Optional<Gym> gym = gymRepository.findGymByIdAndOwnerId(gymId, OwnerService.getLoggedInOwner().getId());
         if (gym.isPresent()){
             if (gymObject.getName() != null && !gymObject.getName().isEmpty()){
                 gym.get().setName(gymObject.getName());
@@ -93,6 +95,9 @@ public class GymService {
             if (gymObject.getDetails() != null && !gymObject.getDetails().isEmpty()){
                 gym.get().setDetails(gymObject.getDetails());
             }
+            if (gymObject.getImage() != null && !gymObject.getImage().isEmpty()){
+                gym.get().setImage(gymObject.getImage());
+            }
             return gymRepository.save(gym.get());
         } else {
             throw new NotFoundException("Gym with id " + gymId + " not found");
@@ -100,7 +105,7 @@ public class GymService {
     }
 
     public Gym deleteGymById(Long gymId){
-        Optional<Gym> gym = gymRepository.findById(gymId);
+        Optional<Gym> gym = gymRepository.findGymByIdAndOwnerId(gymId, OwnerService.getLoggedInOwner().getId());
         if (gym.isPresent()){
             gymRepository.delete(gym.get());
             return gym.get();

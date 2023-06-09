@@ -47,6 +47,15 @@ public class EquipmentService {
         this.ownerService = ownerService;
     }
 
+    public List<Equipment> getAllEquipment(){
+        List<Equipment> allEquipment = equipmentRepository.findAll();
+        if (allEquipment.size() == 0){
+            throw new NotFoundException("No equipment found");
+        } else {
+            return allEquipment;
+        }
+    }
+
     public List<Equipment> getAllEquipmentByGymId(Long gymId){
         Optional<Gym> gym = gymRepository.findById(gymId);
         if (gym.isPresent()){
@@ -88,7 +97,7 @@ public class EquipmentService {
         if (owner.isPresent()){
             Optional<Gym> gym = gymRepository.findGymByIdAndOwnerId(gymId, owner.get().getId());
             if (gym.isPresent()) {
-                Optional<Equipment> equipment = equipmentRepository.findById(equipmentId);
+                Optional<Equipment> equipment = equipmentRepository.findEquipmentByIdAndGymId(equipmentId, gymId);
                 if (equipment.isPresent()){
                     if (equipmentObject.getCategory() != null && !equipmentObject.getCategory().isEmpty()){
                         equipment.get().setCategory(equipmentObject.getCategory());
@@ -104,6 +113,9 @@ public class EquipmentService {
                     }
                     if (equipmentObject.getDetails() != null && !equipmentObject.getDetails().isEmpty()){
                         equipment.get().setDetails(equipmentObject.getDetails());
+                    }
+                    if (equipmentObject.getImage() != null && !equipmentObject.getImage().isEmpty()){
+                        equipment.get().setImage(equipmentObject.getImage());
                     }
                     return equipmentRepository.save(equipment.get());
                 } else {
@@ -122,7 +134,7 @@ public class EquipmentService {
         if (owner.isPresent()) {
             Optional<Gym> gym = gymRepository.findGymByIdAndOwnerId(gymId, owner.get().getId());
             if (gym.isPresent()) {
-                Optional<Equipment> equipment = equipmentRepository.findById(equipmentId);
+                Optional<Equipment> equipment = equipmentRepository.findEquipmentByIdAndGymId(equipmentId, gymId);
                 if (equipment.isPresent()) {
                     equipmentRepository.delete(equipment.get());
                     return equipment.get();

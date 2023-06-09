@@ -25,9 +25,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class OwnerService {
@@ -55,7 +53,7 @@ public class OwnerService {
     }
 
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
-    public Owner getLoggedInOwner() {
+    public static Owner getLoggedInOwner() {
         MyOwnerDetails ownerDetails = (MyOwnerDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         // Check that there is a logged-in user
         if (ownerDetails.getOwner() == null || ownerDetails.getUsername().isEmpty() || ownerDetails.getUsername() == null) {
@@ -109,6 +107,15 @@ public class OwnerService {
         }
     }
 
+    public List<Owner> getAllOwners(){
+        List<Owner> allOwners = ownerRepository.findAll();
+        if (allOwners.size() == 0){
+            throw new NotFoundException("No gym owners found");
+        } else {
+            return allOwners;
+        }
+    }
+
     public Owner findOwnerByEmail(String email){
         return ownerRepository.findOwnerByEmail(email);
     }
@@ -133,6 +140,9 @@ public class OwnerService {
             }
             if (ownerObject.getPassword() != null && !ownerObject.getPassword().isEmpty()){
                 owner.get().setPassword(passwordEncoder.encode(ownerObject.getPassword()));
+            }
+            if (ownerObject.getImage() != null && !ownerObject.getImage().isEmpty()){
+                owner.get().setImage(ownerObject.getImage());
             }
             return ownerRepository.save(owner.get());
         } else {
