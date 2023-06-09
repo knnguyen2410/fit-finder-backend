@@ -134,7 +134,7 @@ public class EquipmentService {
         if (owner.isPresent()) {
             Optional<Gym> gym = gymRepository.findGymByIdAndOwnerId(gymId, owner.get().getId());
             if (gym.isPresent()) {
-                Optional<Equipment> equipment = equipmentRepository.findById(equipmentId);
+                Optional<Equipment> equipment = equipmentRepository.findEquipmentByIdAndGymId(equipmentId, gymId);
                 if (equipment.isPresent()) {
                     equipmentRepository.delete(equipment.get());
                     return equipment.get();
