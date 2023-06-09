@@ -66,7 +66,7 @@ public class GymService {
     }
 
     public Gym updateGymById(Long gymId, Gym gymObject){
-        Optional<Gym> gym = gymRepository.findById(gymId);
+        Optional<Gym> gym = gymRepository.findGymByIdAndOwnerId(gymId, OwnerService.getLoggedInOwner().getId());
         if (gym.isPresent()){
             if (gymObject.getName() != null && !gymObject.getName().isEmpty()){
                 gym.get().setName(gymObject.getName());
