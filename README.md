@@ -314,9 +314,14 @@ The Fit Finder API provides 22 unique CRUD endpoints, allowing for comprehensive
 
 ## Behaviour-Driven Development
 
-Behaviour-Driven Development and proper testing convention was instrumental in the creation of Fit Finder API. 
-User stories were grouped into scenarios, and Cucumber tests were written in Gherkin for each scenario's step definitions. 
-After each step definition was written, the test would fail successfully. The business logic for each test was then written in the service, and the controller method was written to allow a CRUD endpoint to access data from its respective repository. The test would then pass successfully, and the next step definition would be written. This iterative development process ensured each user story was properly addressed, as well as ensuring methods were properly returning data and exceptions.
+Behaviour-Driven Development and proper testing convention was instrumental in the creation of Fit Finder API.
+
+* User stories were grouped into scenarios, and Cucumber tests were written in Gherkin for each scenario's step definitions.
+* After each step definition was written, the test would fail successfully. 
+* The business logic for each test was then written in the service, and the controller method was written to allow a CRUD endpoint to access data from its respective repository. 
+* The test would then pass successfully, and the next step definition would be written. 
+
+This iterative development process ensured each user story was properly addressed, as well as ensuring methods were properly returning data and exceptions.
 
 ![testing-cucumber.png](assets%2Ftesting-cucumber.png)
 
