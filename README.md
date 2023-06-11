@@ -323,5 +323,7 @@ I have immense gratitude to my instructors and peers who have taught me so much 
 - [Maksym Zinchenko](https://github.com/maklaut007)
 - [Kevin Barrios](https://github.com/dayjyun)
 - [Jaime Padilla](https://github.com/Jaypad07)
+- [Lorena Rojas](https://github.com/lrojas4)
+- [Obinna Umerah](https://github.com/ObinnaUmerah)
 
 [Go to top](#fit-finder-api)
