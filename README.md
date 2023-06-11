@@ -6,9 +6,10 @@
     - [Installation Instructions](#installation-instructions)
 - [Development Process](#development-process)
   - [Features](#features)
-  - [User Stories](#user-stories)
   - [Entity Relationship Diagram](#entity-relationship-diagram)
+  - [User Stories](#user-stories)
   - [Endpoints](#endpoints)
+  - [Behaviour-Driven Development](#behaviour-driven-development)
   - [Postman](#postman)
 - [Hurdles](#hurdles)
 - [Credits](#credits)
@@ -18,14 +19,13 @@
 ---
 
 # Description
-Fit Finder aims to improve users' health by enhancing their fitness journey. Fit Finder serves to meet the needs of two user groups - gym goers and gym owners.
+Fit Finder aims to improve users' health by enhancing their fitness journey. This application serves to meet the needs of two user groups - gym goers and gym owners.
 Both groups can use Fit Finder to connect, find specific facilities and services, and grow their community.
-
-The Fit Finder API is a Spring Boot application that allows users to access and manage gym data. 
-* Users can view gyms, as well as the equipment and amenities the gyms offer. 
+* Users can view gyms, as well as the equipment and amenities the gyms offer.
 * Gym owners can register for an account, allowing them to list their gyms and gym offerings.
 
-To see this application in action, check out the [Fit Finder Angular frontend application](https://github.com/knnguyen2410/fit-finder-frontend) which it communicates with.
+As a full-stack Java application, Fit Finder comprises an Angular frontend and Spring Boot API backend. The Fit Finder API allows users to access and manage account and gym data. 
+To see the frontend in action, check out the [Fit Finder Angular frontend](https://github.com/knnguyen2410/fit-finder-frontend) with which it communicates.
 
 ---
 
@@ -211,7 +211,13 @@ This Java REST API contains the following features:
 * In the event that an exception occurs, sends appropriate error messages back to the user.
 * Conforms to the MVC design pattern, having separate models, controllers, and services.
 
+## Entity Relationship Diagram
+![erd.png](assets%2Ferd.png)
+Link to ERD here: [Dbdiagram.io](https://dbdiagram.io/d/64777d42722eb7749428ec9f)
+
 ## User Stories
+
+Below are the user stories for each model in the application:
 
 Owner
 - As an unregistered owner, I want to create an account, so that I can list my gyms.
@@ -243,11 +249,10 @@ Amenity
 - As a registered owner, I want to update an amenity for a gym I own, so that the information is up-to-date.
 - As a registered owner, I want to unlist an amenity for a gym I own, so that the public knows the amenity is no longer available.
 
-## Entity Relationship Diagram
-![erd.png](assets%2Ferd.png)
-Link to ERD here: [Dbdiagram.io](https://dbdiagram.io/d/64777d42722eb7749428ec9f)
-
 ## Endpoints
+
+The Fit Finder API provides 22 unique CRUD endpoints, allowing for comprehensive data management and retrieval. 
+
 | Request Type | URL                                       | Functionality                                | Access  |
 |--------------|-------------------------------------------|----------------------------------------------|---------|
 | Owner        |                                           |                                              |         |
@@ -276,6 +281,10 @@ Link to ERD here: [Dbdiagram.io](https://dbdiagram.io/d/64777d42722eb7749428ec9f
 | GET          | /api/gyms/{gymId}/amenities               | Returns all amenities for gym                | Public  |
 | PUT          | /api/gyms/{gymId}/amenities/{amenityId}   | Updates amenity details for gym              | Private |
 | DELETE       | /api/gyms/{gymId}/amenities{amenityId}    | Deletes an amenity for gym                   | Private |
+
+## Behaviour-Driven Development
+
+![testing-cucumber.png](assets%2Ftesting-cucumber.png)
 
 ## Postman
 
@@ -306,7 +315,7 @@ This hurdle served as a valuable learning experience, highlighting the importanc
 - [JAVA API](https://docs.oracle.com/en/java/javase/17/docs/api/index.html)
 - [Spring Framework Documentation](https://docs.spring.io/spring-framework/reference/)
 - [Angular Documentation](https://angular.io/docs)
-- [Stack Overflow Solution](https://stackoverflow.com/questions/43794721/spring-boot-h2-console-throws-403-with-spring-security-1-5-2) - Accessing H2 Database with spring security implemented
+- [Stack Overflow Solution](https://stackoverflow.com/questions/43794721/spring-boot-h2-console-throws-403-with-spring-security-1-5-2) - Accessing H2 Database with spring security implemented. This code snippet was included in the SecurityConfiguration class.
 
       ```java
           @Bean
