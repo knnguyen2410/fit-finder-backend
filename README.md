@@ -12,6 +12,7 @@
   - [Endpoints](#endpoints)
   - [Behaviour-Driven Development](#behaviour-driven-development)
   - [Postman](#postman)
+  - [H2 Database](#h2-database)
 - [Hurdles](#hurdles)
 - [Credits](#credits)
   - [Sources](#sources)
@@ -333,6 +334,15 @@ Leveraging Postman Workspaces allowed for efficient testing of individual endpoi
 |:----:|:--:| :--: |:------:|
 |![postman-owner.png](assets%2Fpostman-owner.png)|![postman-gym.png](assets%2Fpostman-gym.png)|![postman-equipment.png](assets%2Fpostman-equipment.png)|![postman-amenity.png](assets%2Fpostman-amenity.png)|
 
+## H2 Database
+
+Seed data was created to visualize model relationships, Cucumber tests, and Postman requests.
+H2 database was used to manage the seed data, accessed at [http://localhost:8080/h2-console/login.jsp](http://localhost:8080/h2-console/login.jsp)
+
+![h2-owners.png](assets%2Fh2-owners.png)
+![h2-gyms.png](assets%2Fh2-gyms.png)
+![h2-equipment.png](assets%2Fh2-equipment.png)
+![h2-amenities.png](assets%2Fh2-amenities.png)
 ---
 
 # Hurdles
@@ -362,6 +372,7 @@ This hurdle served as a valuable learning experience, highlighting the importanc
               return (web) -> web.ignoring().antMatchers("/h2-console/**");
           }
       ```
+- Seed data images can be found in the seed-data-sources.txt file
 
 ## Acknowledgments
 
