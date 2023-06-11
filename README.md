@@ -2,10 +2,11 @@
 
 ## Table of Contents
 - [Description](#description)
+  - [Features](#features)
 - [Technologies](#technologies)
     - [Installation Instructions](#installation-instructions)
 - [Development Process](#development-process)
-  - [Features](#features)
+  - [Project Management](#project-management)
   - [Entity Relationship Diagram](#entity-relationship-diagram)
   - [User Stories](#user-stories)
   - [Endpoints](#endpoints)
@@ -26,6 +27,20 @@ Both groups can use Fit Finder to connect, find specific facilities and services
 
 As a full-stack Java application, Fit Finder comprises an Angular frontend and Spring Boot API backend. The Fit Finder API allows users to access and manage account and gym data. 
 To see the frontend in action, check out the [Fit Finder Angular frontend](https://github.com/knnguyen2410/fit-finder-frontend) with which it communicates.
+
+## Features
+
+This Java REST API contains the following features:
+
+* Persists at four models.
+* Environment settings are set up using Spring Profiles.
+* API endpoints can perform full CRUD tasks based on the business use-case.
+* Individually tested endpoints.
+* CRUD routes were built based on rest conventions to be exposed as part of the API.
+* Security and authentication layer for private endpoints.
+* Gracefully handles exceptions when they occur.
+* In the event that an exception occurs, sends appropriate error messages back to the user.
+* Conforms to the MVC design pattern, having separate models, controllers, and services.
 
 ---
 
@@ -153,7 +168,7 @@ The following dependencies were installed, sourced from Maven.
 </dependencies>
 ```
 
-Cross-Origin Resource Sharing (CORS) is used to communicate between this Spring Boot application and the Angular frontend.
+Cross-Origin Resource Sharing (CORS) is used to communicate between this Spring Boot application and the Angular frontend. [[code source](https://git.generalassemb.ly/java-interapt-3-13-2023/project-04)]
 
 ```java
  package com.example.demo;
@@ -194,26 +209,41 @@ To maintain a high level of confidence in the API's functionality, a Behavior-Dr
 
 By following this well-structured development process, Fit Finder API was built with careful consideration of user needs, proper planning of models and relationships, and thorough testing using BDD. This approach not only facilitated the creation of a robust API but also ensured that it met the expectations of both gym goers and gym owners.
 
+## Project Management
+
+[Github Projects](https://github.com/users/knnguyen2410/projects/3/views/3) was used for both frontend and backend components.
+
 ![kanban.png](assets%2Fkanban.png)
-[Github Projects](https://github.com/users/knnguyen2410/projects/3/views/3) was used for planning documentation, breaking down this project into deliverables and timelines, and scheduling.
+A **kanban board** was used to exercise agile methodology.
+Tasks were broken down and prioritized by which ones would contribute directly to the minimum viable product.
+By implementing an iterative approach to the software development cycle, deliverables were able to continually be rolled out.
 
-## Features
-
-This Java REST API contains the following features:
-
-* Persists at four models.
-* Environment settings are set up using Spring Profiles.
-* API endpoints can perform full CRUD tasks based on the business use-case.
-* Individually tested endpoints.
-* CRUD routes were built based on rest conventions to be exposed as part of the API.
-* Security and authentication layer for private endpoints.
-* Gracefully handles exceptions when they occur.
-* In the event that an exception occurs, sends appropriate error messages back to the user.
-* Conforms to the MVC design pattern, having separate models, controllers, and services.
+![roadmap.png](assets%2Froadmap.png)
+A **roadmap** was used to visualize the deliverables and timelines. 
+By creating a schedule, tasks were strategically organized to maximize time efficiency. 
+Assigning milestones to strict deadlines allowed for proper time management, task ownership, and a sense of accomplishment each day. 
 
 ## Entity Relationship Diagram
 ![erd.png](assets%2Ferd.png)
 Link to ERD here: [Dbdiagram.io](https://dbdiagram.io/d/64777d42722eb7749428ec9f)
+
+The application consists of 4 models:
+* Owner - represents the data from accounts created by the gym owner user group
+* Gym - represents the data of a fitness gym belonging to a gym owner
+* Equipment - represents the data of equipment belonging to a fitness gym
+* Amenity - represents the data of an amenity belonging to a fitness gym
+
+The Owner and Gym models have a one-to-many relationship:
+* One owner can have many gyms
+* Many gyms can belong to one owner
+
+The Gym and Equipment models have a one-to-many relationship:
+* One gym can have many pieces of equipment
+* Many pieces of equipment can belong to one gym
+
+The Gym and Amenity models have a one-to-many relationship:
+* One gym can have many amenities
+* Many amenities can belong to one gym
 
 ## User Stories
 
